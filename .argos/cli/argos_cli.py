@@ -13,6 +13,7 @@ from admin import (
     Publisher,
     RepositorySynchronizer,
     SolutionStripper,
+    StructureChecker,
 )
 from admin_dashboard_generator import AdminDashboardGenerator
 from commands import (
@@ -109,6 +110,7 @@ def main() -> int:
         exercise_search = ExerciseSearch()
         class_manager = ClassManager(git_bindings, learning_paths_manager)
         publisher = Publisher(solution_stripper)
+        structure_checker = StructureChecker(solution_stripper)
 
         # Commands
         commands: dict[str, Command] = {
@@ -129,6 +131,7 @@ def main() -> int:
                 exercise_search,
                 class_manager,
                 publisher,
+                structure_checker,
             ),
             "generate-exe": GenerateExeCommand(),
             "version": VersionCommand(),

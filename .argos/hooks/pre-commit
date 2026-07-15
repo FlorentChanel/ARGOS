@@ -6,9 +6,21 @@ case "$(uname -s)" in
     *) ARGOS_CLI="python argos_cli.py" ;;
 esac
 
+remote_url=$(git remote get-url origin)
+
+# Authoring repo (<owner>/ARGOS-Profs): validate the bank structure when the
+# bank or the unit tests are part of the commit.
+if [[ "$remote_url" =~ [/:]ARGOS-Profs(\.git)?$ ]]; then
+    if git diff --cached --name-only | grep -qE '^\.argos/(exercises|unitTests)/'; then
+        echo "Bank changes detected, validating exercise structure..."
+        $ARGOS_CLI admin check-structure
+        exit $?
+    fi
+    exit 0
+fi
+
 # Solution detection only guards the student repo (<owner>/ARGOS and its forks).
 # Anchored so that ARGOS-Profs does not match.
-remote_url=$(git remote get-url origin)
 if [[ ! "$remote_url" =~ [/:]ARGOS(\.git)?$ ]]; then
     exit 0
 fi

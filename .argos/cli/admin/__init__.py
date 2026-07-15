@@ -6,6 +6,7 @@ from .multiple_project_runner import MultipleProjectRunner
 from .publisher import Publisher, PublishError
 from .repository_synchronizer import RepositorySynchronizer
 from .solution_stripper import SolutionStripper
+from .structure_checker import StructureChecker, StructureIssue
 
 __all__ = [
     "Evaluation",
@@ -17,4 +18,6 @@ __all__ = [
     "ClassManager",
     "Publisher",
     "PublishError",
+    "StructureChecker",
+    "StructureIssue",
 ]

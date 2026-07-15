@@ -2,6 +2,8 @@
 
 # 0003 — Some Calculus
 
+**Language:** C
+
 **Difficulty:** 🟢 easy
 
 **Tested skills:**

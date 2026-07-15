@@ -2,6 +2,8 @@
 
 # 0002 — Print Math Calc
 
+**Langage :** C
+
 **Difficulté :** 🟢 facile
 
 **Compétences testées :**

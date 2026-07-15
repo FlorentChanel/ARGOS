@@ -2,6 +2,8 @@
 
 # 0005 — Celsius to Fahrenheit
 
+**Langage :** C
+
 **Difficulté :** 🟢 facile
 
 **Compétences testées :**

@@ -11,6 +11,7 @@ from admin import (
     Publisher,
     PublishError,
     SolutionStripper,
+    StructureChecker,
 )
 from admin_dashboard_generator import AdminDashboardGenerator
 from config import Context, LearningPathsManager
@@ -44,6 +45,7 @@ class AdminCommand(Command):
         exercise_search: ExerciseSearch,
         class_manager: ClassManager,
         publisher: Publisher,
+        structure_checker: StructureChecker,
     ) -> None:
         self._context = context
         self._evaluation = evaluation
@@ -54,6 +56,7 @@ class AdminCommand(Command):
         self._exercise_search = exercise_search
         self._class_manager = class_manager
         self._publisher = publisher
+        self._structure_checker = structure_checker
 
     def configure(self, parser: ArgumentParser) -> None:
         parser.description = """Admin commands for ARGOS. This command is intended for professors and not students.
@@ -188,6 +191,21 @@ class AdminCommand(Command):
             help="Match exercises that have any of the given skills instead of all",
         )
 
+        check_structure_parser = subparsers.add_parser(
+            "check-structure",
+            help="Validate that bank exercises conform to the uniform structure. Exits with 1 on any issue.",
+        )
+        check_structure_parser.description = """Validates the bank against the frozen exercise structure:
+        folder naming, id uniqueness, required files, metadata (schema fields + label keys),
+        unit-test mirror and balanced SOLUTION markers.
+        This is the guardrail called by the authoring pre-commit hook."""
+        check_structure_parser.add_argument(
+            "exercises",
+            nargs="?",
+            default="all",
+            help="Exercise ids or fullnames to check (comma separated or 'all', default: all)",
+        )
+
         publish_parser = subparsers.add_parser(
             "publish",
             help="Publish stripped exercises to a student repository working copy",
@@ -219,11 +237,48 @@ class AdminCommand(Command):
                 return self._handle_create(args)
             case "search":
                 return self._search_exercises(args)
+            case "check-structure":
+                return self._check_structure(args)
             case "publish":
                 return self._publish(args)
             case _:
                 Output.error(f"Unknown admin action '{action}'.")
                 return 1
+
+    def _check_structure(self, args: dict[str, str]) -> int:
+        selector = args.get("exercises", "all")
+        if selector == "all":
+            folder_names = None
+        else:
+            all_names = self._structure_checker.bank_folder_names()
+            folder_names = []
+            for token in selector.split(","):
+                token = token.strip()
+                if token.isdigit():
+                    matches = [
+                        n for n in all_names if n.startswith(f"ex_{token.zfill(4)}_")
+                    ]
+                    if not matches:
+                        Output.error(
+                            f"No exercise with id '{token}' in the bank.", False
+                        )
+                        return 1
+                    folder_names.extend(matches)
+                elif token in all_names:
+                    folder_names.append(token)
+                else:
+                    Output.error(f"Exercise '{token}' not found in the bank.", False)
+                    return 1
+
+        issues = self._structure_checker.check(folder_names)
+        if not issues:
+            Output.success("Bank structure is valid.")
+            return 0
+
+        Output.error(f"{len(issues)} structure issue(s) found:", show_log_link=False)
+        for issue in issues:
+            Output.hint(f"  [{issue.exercise}] {issue.message}")
+        return 1
 
     def _publish(self, args: dict[str, str]) -> int:
         target = Path(args["target"])

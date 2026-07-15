@@ -41,6 +41,11 @@ POSSIBLE_EXERCISE_EXTENSIONS = [".c", ".cpp"]
 DIFFICULTY_POINTS: dict[str, int] = {"easy": 1, "medium": 2, "hard": 5}
 
 METADATA_FILE_NAME = "metadata.json"
+SKILLS_LABELS_FILE_NAME = "skills.labels.json"
+DIFFICULTY_LABELS_FILE_NAME = "difficulty.labels.json"
+
+# Files processed as text (marker check + strip); everything else is copied verbatim.
+TEXT_EXTENSIONS = {".c", ".h", ".cpp", ".hpp", ".md", ".json", ".txt", ".cmake", ".py"}
 # These files are not considered when synchronizing exercises between the bank and the workspace.
 SYNC_FILES_TO_IGNORE = [METADATA_FILE_NAME]
 

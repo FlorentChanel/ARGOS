@@ -2,6 +2,8 @@
 
 # 0001 — Print Hello World
 
+**Language:** C
+
 **Difficulty:** 🟢 easy
 
 **Tested skills:**

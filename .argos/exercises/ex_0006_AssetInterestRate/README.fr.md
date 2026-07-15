@@ -2,6 +2,8 @@
 
 # 0006 — Asset Interest Rate
 
+**Langage :** C
+
 **Difficulté :** 🟡 moyen
 
 **Compétences testées :**

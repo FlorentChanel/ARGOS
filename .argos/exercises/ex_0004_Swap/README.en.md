@@ -2,6 +2,8 @@
 
 # 0004 — Swap
 
+**Language:** C
+
 **Difficulty:** 🟢 easy
 
 **Tested skills:**

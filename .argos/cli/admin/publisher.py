@@ -8,9 +8,12 @@ from config.models import Exercise
 from utils.constants import (
     BANK_EXERCISES_PATH,
     CLI_FOLDER,
+    DIFFICULTY_LABELS_FILE_NAME,
     HOOKS_FOLDER_PATH,
     LEARNING_PATHS_FOLDER_PATH,
     ROOT_FOLDER,
+    SKILLS_LABELS_FILE_NAME,
+    TEXT_EXTENSIONS,
     UNIT_TESTS_FOLDER_PATH,
 )
 
@@ -22,9 +25,8 @@ BANNER_COMMENT = (
     "<!-- Generated at publication from metadata.json — do not edit by hand -->"
 )
 DIFFICULTY_BADGES = {"easy": "🟢", "medium": "🟡", "hard": "🔴"}
-
-# Files processed as text (marker check + strip); everything else is copied verbatim.
-TEXT_EXTENSIONS = {".c", ".h", ".cpp", ".hpp", ".md", ".json", ".txt", ".cmake", ".py"}
+# Display names of the language enum — identical in French and English.
+LANGUAGE_LABELS = {"c": "C", "cpp": "C++"}
 
 README_SCAFFOLD = f"""# ARGOS
 
@@ -78,8 +80,8 @@ class Publisher:
         return [e.fullname for e in exercises]
 
     def _load_labels(self) -> None:
-        self._skills_labels = self._load_label_table("skills.labels.json")
-        self._difficulty_labels = self._load_label_table("difficulty.labels.json")
+        self._skills_labels = self._load_label_table(SKILLS_LABELS_FILE_NAME)
+        self._difficulty_labels = self._load_label_table(DIFFICULTY_LABELS_FILE_NAME)
 
     def _load_label_table(self, filename: str) -> dict[str, dict[str, str]]:
         path = Path(BANK_EXERCISES_PATH) / filename
@@ -146,12 +148,15 @@ class Publisher:
         meta = exercise.metadata
         badge = DIFFICULTY_BADGES.get(meta.difficulty.value, "")
         difficulty = self._difficulty_label(meta.difficulty.value, lang)
+        language = LANGUAGE_LABELS.get(meta.language.value, meta.language.value)
         skills = [self._skill_label(key, lang) for key in meta.skills]
 
         if lang == "fr":
+            language_line = f"**Langage :** {language}"
             difficulty_line = f"**Difficulté :** {badge} {difficulty}"
             skills_header = "**Compétences testées :**"
         else:
+            language_line = f"**Language:** {language}"
             difficulty_line = f"**Difficulty:** {badge} {difficulty}"
             skills_header = "**Tested skills:**"
 
@@ -159,6 +164,8 @@ class Publisher:
             BANNER_COMMENT,
             "",
             f"# {exercise.id} — {meta.exercise_name}",
+            "",
+            language_line,
             "",
             difficulty_line,
             "",
@@ -186,8 +193,8 @@ class Publisher:
         bank_dest.mkdir(parents=True, exist_ok=True)
         for name in (
             "metadata.schema.json",
-            "skills.labels.json",
-            "difficulty.labels.json",
+            SKILLS_LABELS_FILE_NAME,
+            DIFFICULTY_LABELS_FILE_NAME,
         ):
             src = Path(BANK_EXERCISES_PATH) / name
             if src.exists():

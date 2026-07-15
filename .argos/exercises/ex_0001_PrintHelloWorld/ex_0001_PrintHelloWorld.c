@@ -9,5 +9,4 @@
 // Function definitions
 void ex_0001_PrintHelloWorld(void)
 {
-  // TODO: print "hello, world" followed by a newline
 }
