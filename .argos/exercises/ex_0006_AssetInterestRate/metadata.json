@@ -1,0 +1,13 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Asset Interest Rate",
+  "description": "Write a function that computes the final value of an asset after applying a yearly compound interest rate for a given number of years.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "basics",
+    "arithmetic_operators",
+    "variables_and_types",
+    "formatted_io"
+  ]
+}

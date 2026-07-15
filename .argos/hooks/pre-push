@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Select the CLI entrypoint: argos.exe on Windows, the python symlink elsewhere.
+case "$(uname -s)" in
+    MINGW*|MSYS*|CYGWIN*) ARGOS_CLI="./argos.exe" ;;
+    *) ARGOS_CLI="python argos_cli.py" ;;
+esac
+
+echo "-----------Runnning exercises---------------------"
+$ARGOS_CLI check --touched
+exit_code=$?
+echo "-------------------------------------------"
+
+if [ $exit_code -ne 0 ]; then
+    if [ ! -t 1 ]; then
+        exit $exit_code
+    fi
+    read -p "Some exercises failed. Continue anyway? (y/n) " choice < /dev/tty
+    case "$choice" in
+      y|Y ) exit 0;;
+      * ) exit $exit_code;;
+    esac
+fi

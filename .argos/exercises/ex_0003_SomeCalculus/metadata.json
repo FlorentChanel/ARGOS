@@ -1,0 +1,12 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Some Calculus",
+  "description": "Write a function that performs some basic mathematical calculations and prints the results to the console.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "basics",
+    "arithmetic_operators",
+    "variables_and_types"
+  ]
+}

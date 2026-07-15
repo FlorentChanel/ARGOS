@@ -1,0 +1,118 @@
+{
+  "basics": {
+    "fr": "premiers pas",
+    "en": "basics"
+  },
+  "variables_and_types": {
+    "fr": "variables et types",
+    "en": "variables and types"
+  },
+  "arithmetic_operators": {
+    "fr": "opérateurs arithmétiques",
+    "en": "arithmetic operators"
+  },
+  "relational_logical_operators": {
+    "fr": "opérateurs relationnels et logiques",
+    "en": "relational and logical operators"
+  },
+  "bitwise_operators": {
+    "fr": "opérateurs bit-à-bit",
+    "en": "bitwise operators"
+  },
+  "type_conversions": {
+    "fr": "conversions / précision",
+    "en": "type conversions / precision"
+  },
+  "formatted_io": {
+    "fr": "entrées-sorties formatées",
+    "en": "formatted input/output"
+  },
+  "conditionals": {
+    "fr": "conditions (if / switch)",
+    "en": "conditionals (if / switch)"
+  },
+  "for_loop": {
+    "fr": "boucle for",
+    "en": "for loop"
+  },
+  "while_loop": {
+    "fr": "boucle while",
+    "en": "while loop"
+  },
+  "do_while_loop": {
+    "fr": "boucle do-while",
+    "en": "do-while loop"
+  },
+  "break_continue": {
+    "fr": "break / continue",
+    "en": "break / continue"
+  },
+  "functions_by_value": {
+    "fr": "fonctions (paramètres par valeur)",
+    "en": "functions (pass by value)"
+  },
+  "pass_by_address": {
+    "fr": "passage par adresse",
+    "en": "pass by address"
+  },
+  "recursion": {
+    "fr": "récursion",
+    "en": "recursion"
+  },
+  "scope_static_variables": {
+    "fr": "portée / variables statiques",
+    "en": "scope / static variables"
+  },
+  "arrays_1d": {
+    "fr": "tableaux 1D",
+    "en": "1D arrays"
+  },
+  "arrays_2d": {
+    "fr": "tableaux 2D / matrices",
+    "en": "2D arrays / matrices"
+  },
+  "strings": {
+    "fr": "chaînes de caractères",
+    "en": "strings"
+  },
+  "pointers": {
+    "fr": "pointeurs / déréférencement",
+    "en": "pointers / dereferencing"
+  },
+  "pointer_arithmetic": {
+    "fr": "arithmétique des pointeurs",
+    "en": "pointer arithmetic"
+  },
+  "function_pointers": {
+    "fr": "pointeurs de fonction",
+    "en": "function pointers"
+  },
+  "structs": {
+    "fr": "structures (struct)",
+    "en": "structures (struct)"
+  },
+  "pointers_to_structs": {
+    "fr": "pointeurs sur structures",
+    "en": "pointers to structures"
+  },
+  "arrays_of_structs": {
+    "fr": "tableaux de structures",
+    "en": "arrays of structures"
+  },
+  "typedef_enum_union": {
+    "fr": "typedef / enum / union",
+    "en": "typedef / enum / union"
+  },
+  "dynamic_allocation": {
+    "fr": "allocation dynamique",
+    "en": "dynamic allocation"
+  },
+  "dynamic_allocation_2d": {
+    "fr": "allocation dynamique 2D",
+    "en": "2D dynamic allocation"
+  },
+  "modularization_headers": {
+    "fr": "modularisation / fichiers d'en-tête",
+    "en": "modularization / header files"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "easy": {
+    "fr": "facile",
+    "en": "easy"
+  },
+  "medium": {
+    "fr": "moyen",
+    "en": "medium"
+  },
+  "hard": {
+    "fr": "difficile",
+    "en": "hard"
+  }
+}

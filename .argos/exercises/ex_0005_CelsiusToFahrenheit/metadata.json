@@ -1,0 +1,12 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Celsius to Fahrenheit",
+  "description": "Write a function that converts a temperature from Celsius to Fahrenheit and returns it.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "basics",
+    "arithmetic_operators",
+    "formatted_io"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "./learningPath.schema.json",
+  "name": "HE-Arc - 1242.1 Langage_C",
+  "series": [
+    {
+      "name": "Basics",
+      "pointsToComplete": 3,
+      "exercises": [
+        "ex_0001_PrintHelloWorld",
+        "ex_0002_PrintMathCalc",
+        "ex_0003_SomeCalculus"
+      ]
+    },
+    {
+      "name": "Variables and types",
+      "pointsToComplete": 3,
+      "exercises": [
+        "ex_0004_Swap",
+        "ex_0005_CelsiusToFahrenheit",
+        "ex_0006_AssetInterestRate"
+      ]
+    }
+  ]
+}

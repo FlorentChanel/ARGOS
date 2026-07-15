@@ -1,0 +1,12 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Swap",
+  "description": "Write a function that swaps the contents of two variables and prints them before and after the swap.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "basics",
+    "variables_and_types",
+    "formatted_io"
+  ]
+}

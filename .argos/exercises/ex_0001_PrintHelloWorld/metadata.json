@@ -1,0 +1,11 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Print Hello World",
+  "description": "Write a function that prints 'hello, world' to the console.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "basics",
+    "formatted_io"
+  ]
+}

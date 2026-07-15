@@ -1,0 +1,11 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Print Math Calc",
+  "description": "Write a function that prints the result of a mathematical calculation to the console.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "basics",
+    "arithmetic_operators"
+  ]
+}

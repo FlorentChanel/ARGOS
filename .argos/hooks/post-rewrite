@@ -1,0 +1,16 @@
+#!/bin/sh
+# Handles sync when pull.rebase=True
+
+# Since post-rewrite could be triggered by some other command,
+# we only want to run it when we are rebasing.
+[ "$1" = "rebase" ] || exit 0
+
+# Select the CLI entrypoint: argos.exe on Windows, the python symlink elsewhere.
+case "$(uname -s)" in
+    MINGW*|MSYS*|CYGWIN*) ARGOS_CLI="./argos.exe" ;;
+    *) ARGOS_CLI="python argos_cli.py" ;;
+esac
+
+echo "-----------Syncing exercises---------------------"
+$ARGOS_CLI sync
+echo "----------"

@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://he-arc.ch/argos/metadata.schema.json",
+  "title": "ARGOS Exercise Metadata",
+  "description": "Metadata for an ARGOS exercise, which includes information about the exercise such as its name, description, and it's difficulty.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "The name of the exercise.",
+      "type": "string"
+    },
+    "description": {
+      "description": "A brief description of the exercise.",
+      "type": "string"
+    },
+    "difficulty": {
+      "description": "The difficulty level of the exercise. It can be one of 'easy', 'medium', or 'hard'.",
+      "type": "string",
+      "enum": ["easy", "medium", "hard"]
+    },
+    "language": {
+      "description": "The programming language used in the exercise. It can be one of 'c', 'cpp'.",
+      "type": "string",
+      "enum": ["c", "cpp"]
+    },
+    "skills": {
+      "description": "The skills that the exercise covers. Snake_case keys defined in skills.labels.json.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": ["name", "description", "difficulty", "language", "skills"]
+}
