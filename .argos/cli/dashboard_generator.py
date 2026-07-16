@@ -85,8 +85,10 @@ class DashboardGenerator:
         )
 
     def _build_data(self, summary: ScoreSummary) -> dict[str, Any]:
+        # The org name is not a personal GitHub login: fall back to git user.name
+        # so the dashboard does not query api.github.com/users/HE-Arc.
         username = self._git_bindings.get_github_username()
-        if username is None or "He-Arc":
+        if username is None or username.lower() == "he-arc":
             username = self._git_bindings.get_user_name()
 
         return {

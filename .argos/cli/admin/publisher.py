@@ -6,6 +6,7 @@ from pathlib import Path
 from admin.solution_stripper import SolutionStripper
 from config.models import Exercise
 from utils.constants import (
+    ARGOS_FOLDER,
     BANK_EXERCISES_PATH,
     CLI_FOLDER,
     DASHBOARDS_FOLDER_PATH,
@@ -188,6 +189,11 @@ class Publisher:
             Path(UNIT_TESTS_FOLDER_PATH) / "CMakeLists.txt",
             argos_dir / "unitTests" / "CMakeLists.txt",
         )
+
+        # Ignore rules for per-clone state (argos.log, sync_base/) travel with the repo
+        argos_gitignore = Path(ARGOS_FOLDER) / ".gitignore"
+        if argos_gitignore.exists():
+            shutil.copy2(argos_gitignore, argos_dir / ".gitignore")
 
         # Bank-level metadata files (schema + label tables)
         bank_dest = argos_dir / "exercises"

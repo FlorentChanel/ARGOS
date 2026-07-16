@@ -35,6 +35,7 @@ from scoring import ScoreCalculator
 from tests import GoogleTestRunner, ResultParser
 from utils.constants import ARGOS_FOLDER, HOOKS_FOLDER_PATH, LOG_FILE_PATH, LOG_LEVEL
 from utils.logging import ColorFormatter, PlainFormatter
+from utils.toolchain import ensure_compiler_first_in_path
 
 # Fixes encoding error on some Windows Git tools (like in IDE git integrations)
 if isinstance(sys.stdout, io.TextIOWrapper):
@@ -70,6 +71,8 @@ def _config_logger() -> logging.Logger:
 
 def main() -> int:
     logger = _config_logger()
+
+    ensure_compiler_first_in_path()
 
     try:
         # Config

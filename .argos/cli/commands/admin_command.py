@@ -29,6 +29,7 @@ from .command import Command
 logger = getLogger(__name__)
 
 REPO_URL_REGEX_FORMAT = re.compile(r"^[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+$")
+SLUG_REGEX_FORMAT = re.compile(r"^[A-Z][A-Za-z0-9]*$")
 
 
 class AdminCommand(Command):
@@ -324,6 +325,20 @@ class AdminCommand(Command):
         Output.hint(
             "No git operation was performed: review the diff in the target, then commit and push."
         )
+
+        local_state = [
+            rel
+            for rel in ("Exercises", ".argos/argos.log", ".argos/sync_base")
+            if (target / rel).exists()
+        ]
+        if local_state:
+            Output.warn(
+                "The target clone also contains local working state, NOT published: "
+                + ", ".join(local_state)
+            )
+            Output.hint(
+                "  Never 'git add .' in the target: stage the published paths explicitly."
+            )
         return 0
 
     def _handle_solution(self, args: dict[str, str]) -> int:
@@ -477,18 +492,16 @@ class AdminCommand(Command):
         return 0
 
     def _create_exercise(self) -> int:
-        description = input("Description (CamelCase): ").strip()
-        if not description:
-            Output.error("Description cannot be empty.")
-            return 1
-        if " " in description:
-            Output.error("Description must not contain spaces.")
+        slug = input("Slug (CamelCase, e.g. PrintHelloWorld): ").strip()
+        if not SLUG_REGEX_FORMAT.match(slug):
+            Output.error(
+                "Slug must be CamelCase (letters and digits, starting with an uppercase letter).",
+                show_log_link=False,
+            )
             return 1
 
         try:
-            exercise_dir, unit_test_dir = self._exercise_bank_manager.create(
-                description
-            )
+            exercise_dir, unit_test_dir = self._exercise_bank_manager.create(slug)
         except FileExistsError as e:
             Output.error(str(e))
             return 1
@@ -497,6 +510,12 @@ class AdminCommand(Command):
         Output.path("Exercise", exercise_dir)
         Output.path("Unit test", unit_test_dir)
         Output.hint("  Open the files to implement the exercise and its test.")
+
+        issues = self._structure_checker.check([exercise_dir.name])
+        if issues:
+            Output.hint("  Left to fill before the exercise passes check-structure:")
+            for issue in issues:
+                Output.hint(f"    {issue.message}")
         return 0
 
     def _strip_solution(self, args: dict[str, str]) -> int:

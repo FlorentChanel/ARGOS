@@ -25,6 +25,19 @@ if [[ ! "$remote_url" =~ [/:]ARGOS(\.git)?$ ]]; then
     exit 0
 fi
 
+# The upstream student repo (HE-Arc/ARGOS) only receives 'argos admin publish'
+# outputs: refuse local working state there. On student forks (<login>/ARGOS),
+# committing Exercises/ is precisely the point — no restriction.
+if [[ "$remote_url" =~ [/:]HE-Arc/ARGOS(\.git)?$ ]]; then
+    forbidden=$(git diff --cached --name-only | grep -E '^(Exercises/|\.argos-config\.json$)')
+    if [ -n "$forbidden" ]; then
+        echo "ERROR: this clone is the upstream student repository (HE-Arc/ARGOS)."
+        echo "It only receives 'argos admin publish' outputs; refusing to commit local working state:"
+        echo "$forbidden" | sed 's/^/  /'
+        exit 1
+    fi
+fi
+
 exercises=$(git diff --cached --name-only \
       | grep '^.argos/exercises/' \
       | awk -F'/' '{print $3}' \
