@@ -37,12 +37,16 @@ class ArgosConfig:
     def _parse_config(self) -> list[str]:
         """
         Parses the root .argos-config file and returns the list of selected learningPaths.
-        raises FileNotFoundError if the config file does not exist.
+        Creates a default config (empty selection) if the file does not exist:
+        the file is per-user state, untracked, so fresh clones start without it.
 
         It does not validate if the learningPaths exist or if they are valid. but checks if the learningPaths are strings and if the learningPaths key is present in the config file.
         """
         if not self._config_path.exists():
-            raise FileNotFoundError(f"Config file not found at {self._config_path}")
+            self._config_path.write_text(
+                dumps({"learningPaths": []}, indent=4), encoding="utf-8"
+            )
+            return []
 
         with open(self._config_path, "r") as f:
             config_data = loads(f.read())

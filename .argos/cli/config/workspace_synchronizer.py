@@ -162,7 +162,6 @@ class WorkspaceSynchronizer:
             match merge_result:
                 case MergeFileResultKind.SUCCESS:
                     logger.debug("Merged %s/%s cleanly", exercise.id, bank_file.name)
-                    break
                 case MergeFileResultKind.CONFLICTS:
                     had_conflicts = True
                     logger.warning(
@@ -170,7 +169,6 @@ class WorkspaceSynchronizer:
                         exercise.id,
                         bank_file.name,
                     )
-                    break
                 case MergeFileResultKind.ERROR:
                     logger.error(
                         "Error merging '%s/%s'",

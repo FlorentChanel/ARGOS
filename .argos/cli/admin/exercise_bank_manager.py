@@ -168,26 +168,4 @@ class ExerciseBankManager:
             encoding="utf-8",
         )
 
-        # Still required by the root CMakeLists (add_subdirectory loop);
-        # drop this file when the centralized CMake generation lands.
-        (unit_test_dir / "CMakeLists.txt").write_text(
-            f"add_executable({binary_name} {binary_name}.cpp)\n"
-            "\n"
-            f"target_link_libraries({binary_name} argos_common GTest::gtest_main)\n"
-            "\n"
-            "include(GoogleTest)\n"
-            "\n"
-            f"gtest_discover_tests({binary_name} EXTRA_ARGS --gtest_color=1)\n"
-            "\n"
-            f"if(EXISTS ${{CMAKE_CURRENT_SOURCE_DIR}}/../../../Exercises/{fullname}/main.c)\n"
-            "  # With a header the exercise uses separate compilation; without it, main.c includes the .c\n"
-            f"  if(EXISTS ${{CMAKE_CURRENT_SOURCE_DIR}}/../../../Exercises/{fullname}/{fullname}.h)\n"
-            f"    add_executable({test_name} ../../../Exercises/{fullname}/main.c ../../../Exercises/{fullname}/{fullname}.c)\n"
-            "  else()\n"
-            f"    add_executable({test_name} ../../../Exercises/{fullname}/main.c)\n"
-            "  endif()\n"
-            "endif()\n",
-            encoding="utf-8",
-        )
-
         return exercise_dir, unit_test_dir

@@ -8,7 +8,7 @@
 # Select the CLI entrypoint: argos.exe on Windows, the python symlink elsewhere.
 case "$(uname -s)" in
     MINGW*|MSYS*|CYGWIN*) ARGOS_CLI="./argos.exe" ;;
-    *) ARGOS_CLI="python argos_cli.py" ;;
+    *) ARGOS_CLI="python argos.py" ;;
 esac
 
 echo "-----------Syncing exercises---------------------"

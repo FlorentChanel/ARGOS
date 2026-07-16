@@ -217,7 +217,7 @@ class Publisher:
 
         # Root-level files
         root = Path(ROOT_FOLDER)
-        for name in (".clangd", ".gitignore", "argos_cli.py", "argos.exe"):
+        for name in (".clangd", ".gitignore", "argos.py", "argos.exe"):
             src = root / name
             if src.exists():
                 shutil.copy2(src, target / name)

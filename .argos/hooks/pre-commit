@@ -3,7 +3,7 @@
 # Select the CLI entrypoint: argos.exe on Windows, the python symlink elsewhere.
 case "$(uname -s)" in
     MINGW*|MSYS*|CYGWIN*) ARGOS_CLI="./argos.exe" ;;
-    *) ARGOS_CLI="python argos_cli.py" ;;
+    *) ARGOS_CLI="python argos.py" ;;
 esac
 
 remote_url=$(git remote get-url origin)
@@ -29,7 +29,9 @@ fi
 # outputs: refuse local working state there. On student forks (<login>/ARGOS),
 # committing Exercises/ is precisely the point — no restriction.
 if [[ "$remote_url" =~ [/:]HE-Arc/ARGOS(\.git)?$ ]]; then
-    forbidden=$(git diff --cached --name-only | grep -E '^(Exercises/|\.argos-config\.json$)')
+    # Deletions stay allowed: removing local state from tracking is maintenance.
+    forbidden=$(git diff --cached --name-status | awk '$1 != "D" { print $2 }' \
+        | grep -E '^(Exercises/|\.argos-config\.json$)')
     if [ -n "$forbidden" ]; then
         echo "ERROR: this clone is the upstream student repository (HE-Arc/ARGOS)."
         echo "It only receives 'argos admin publish' outputs; refusing to commit local working state:"
