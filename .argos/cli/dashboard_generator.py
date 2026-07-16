@@ -23,6 +23,7 @@ class DashboardGenerator:
         merged = self._merge_summaries(existing, summary) if existing else summary
         data = self._build_data(merged)
         js = f"window.ARGOS_DATA = {json.dumps(data, indent=4, ensure_ascii=False)};\n"
+        output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(js, encoding="utf-8")
 
     def _read_existing_summary(self, output_path: Path) -> ScoreSummary | None:

@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <title>ARGOS — Professor Dashboard</title>
+    </head>
+    <body x-data="adminDashboard">
+        <div id="no-data" x-show="!d">
+            <p>No data yet.</p>
+            <p>
+                Run ARGOS <code>admin eval</code> command to generate this
+                dashboard.
+            </p>
+        </div>
+
+        <header x-show="d">
+            <h1 x-text="d?.learningPath.name"></h1>
+            <p x-text="d?.students.length + ' student(s) evaluated'"></p>
+        </header>
+
+        <main x-show="d">
+            <div class="sort-bar">
+                Sort by:
+                <span
+                    :class="{ active: sortKey === 'username' }"
+                    @click="sort('username')"
+                    >Name</span
+                >
+                <template x-for="s in d?.series ?? []" :key="s">
+                    <span
+                        :class="{ active: sortKey === s }"
+                        @click="sort(s)"
+                        x-text="s"
+                    ></span>
+                </template>
+                <span
+                    :class="{ active: sortKey === 'total' }"
+                    @click="sort('total')"
+                    >Total</span
+                >
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <template x-for="s in d?.series ?? []" :key="s">
+                            <th class="serie-header" x-text="s"></th>
+                        </template>
+                        <th class="right">Total</th>
+                    </tr>
+                </thead>
+                <template x-for="student in sorted" :key="student.username">
+                    <tbody x-data="{ open: false }">
+                        <tr class="student-row" @click="open = !open">
+                            <td>
+                                <div class="username-cell">
+                                    <span
+                                        class="toggle-icon"
+                                        x-text="open ? '▲' : '▼'"
+                                    ></span>
+                                    <span x-text="student.username"></span>
+                                    <span
+                                        x-show="!student.valid_repo"
+                                        class="badge badge-invalid"
+                                        >invalid repo</span
+                                    >
+                                    <span
+                                        x-show="student.any_tampered"
+                                        class="badge badge-tampered"
+                                        >⚠ tampered</span
+                                    >
+                                </div>
+                            </td>
+                            <template
+                                x-for="serieResult in studentSeries(student)"
+                                :key="serieResult?.name ?? '_na'"
+                            >
+                                <td class="serie-cell">
+                                    <template x-if="serieResult">
+                                        <span>
+                                            <span
+                                                class="pts"
+                                                x-text="serieResult.points_earned + ' / ' + serieResult.points_available"
+                                            ></span>
+                                            &nbsp;
+                                            <span
+                                                :class="serieResult.completed ? 'badge badge-pass' : 'badge badge-fail'"
+                                                x-text="serieResult.completed ? '✓' : '✗'"
+                                            ></span>
+                                        </span>
+                                    </template>
+                                    <template x-if="!serieResult">
+                                        <span class="na">N/A</span>
+                                    </template>
+                                </td>
+                            </template>
+                            <td class="total-cell">
+                                <template x-if="student.valid_repo">
+                                    <span
+                                        x-text="student.total_earned + ' / ' + student.total_available"
+                                    ></span>
+                                </template>
+                                <template x-if="!student.valid_repo">
+                                    <span class="na">N/A</span>
+                                </template>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" x-show="open">
+                            <td :colspan="(d?.series.length ?? 0) + 2">
+                                <div class="detail-inner">
+                                    <template
+                                        x-for="serie in student.series"
+                                        :key="serie.name"
+                                    >
+                                        <div class="detail-serie">
+                                            <h4
+                                                x-text="serie.name + ' — ' + serie.points_earned + ' / ' + serie.points_available + ' pts'"
+                                            ></h4>
+                                            <ul class="exercise-list">
+                                                <template
+                                                    x-for="ex in serie.exercises"
+                                                    :key="ex.exercise_id"
+                                                >
+                                                    <li>
+                                                        <div
+                                                            class="exercise-row"
+                                                        >
+                                                            <span
+                                                                :class="ex.passed ? 'pass' : (ex.total_tests !== null ? 'fail' : 'build-fail')"
+                                                                x-text="ex.passed ? '✓' : (ex.total_tests !== null ? '✗' : '⚙')"
+                                                            ></span>
+                                                            <span
+                                                                class="exercise-id"
+                                                                x-text="'#' + ex.exercise_id"
+                                                            ></span>
+                                                            <span
+                                                                class="exercise-name"
+                                                                x-text="ex.exercise_name"
+                                                            ></span>
+                                                            <span
+                                                                class="exercise-pts"
+                                                                x-text="ex.points_earned + ' / ' + ex.points_available + ' pts'"
+                                                            ></span>
+                                                            <span
+                                                                x-show="ex.tampered"
+                                                                class="badge badge-tampered"
+                                                                >⚠ tampered</span
+                                                            >
+                                                        </div>
+                                                        <template
+                                                            x-if="ex.gtest_output"
+                                                        >
+                                                            <details
+                                                                class="gtest-output"
+                                                            >
+                                                                <summary>
+                                                                    Test output
+                                                                </summary>
+                                                                <pre
+                                                                    x-html="ansiToHtml(ex.gtest_output)"
+                                                                ></pre>
+                                                            </details>
+                                                        </template>
+                                                        <template
+                                                            x-if="compilationSummary(ex.compilation_output)"
+                                                        >
+                                                            <details
+                                                                class="compilation-output"
+                                                                :class="compilationSummary(ex.compilation_output)?.errors ? 'has-errors' : 'has-warnings'"
+                                                            >
+                                                                <summary
+                                                                    x-text="compilationSummary(ex.compilation_output)?.label"
+                                                                ></summary>
+                                                                <pre
+                                                                    x-html="ansiToHtml(ex.compilation_output)"
+                                                                ></pre>
+                                                            </details>
+                                                        </template>
+                                                    </li>
+                                                </template>
+                                            </ul>
+                                        </div>
+                                    </template>
+                                    <p
+                                        x-show="student.series.length === 0"
+                                        style="
+                                            color: var(--text-muted-color);
+                                            margin: 0;
+                                            font-size: 0.85rem;
+                                        "
+                                    >
+                                        No exercise data available.
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </template>
+            </table>
+        </main>
+
+        <script>
+            window.ARGOS_ADMIN_DATA = null;
+        </script>
+        <script src="data.js"></script>
+        <script type="module">
+            import { AnsiUp } from "https://cdn.jsdelivr.net/npm/@hashicorp/ansi_up@6.0.8/+esm";
+            document.addEventListener("alpine:init", () => {
+                Alpine.data("adminDashboard", () => ({
+                    d: window.ARGOS_ADMIN_DATA,
+                    sortKey: "total",
+                    sortDesc: true,
+
+                    ansiToHtml(text) {
+                        if (!text) return "";
+                        const au = new AnsiUp();
+                        return au.ansi_to_html(text);
+                    },
+
+                    sort(key) {
+                        if (this.sortKey === key) {
+                            this.sortDesc = !this.sortDesc;
+                        } else {
+                            this.sortKey = key;
+                            this.sortDesc = true;
+                        }
+                    },
+
+                    get sorted() {
+                        if (!this.d) return [];
+                        return [...this.d.students].sort((a, b) => {
+                            let va, vb;
+                            if (this.sortKey === "username") {
+                                va = a.username.toLowerCase();
+                                vb = b.username.toLowerCase();
+                            } else if (this.sortKey === "total") {
+                                va = a.total_earned ?? -1;
+                                vb = b.total_earned ?? -1;
+                            } else {
+                                const sa = a.series.find(
+                                    (s) => s.name === this.sortKey,
+                                );
+                                const sb = b.series.find(
+                                    (s) => s.name === this.sortKey,
+                                );
+                                va = sa?.points_earned ?? -1;
+                                vb = sb?.points_earned ?? -1;
+                            }
+                            if (va < vb) return this.sortDesc ? 1 : -1;
+                            if (va > vb) return this.sortDesc ? -1 : 1;
+                            return 0;
+                        });
+                    },
+
+                    studentSeries(student) {
+                        return (this.d?.series ?? []).map(
+                            (name) =>
+                                student.series.find((s) => s.name === name) ??
+                                null,
+                        );
+                    },
+
+                    compilationSummary(output) {
+                        if (!output) return null;
+                        const errors = (output.match(/error:/g) || []).length;
+                        const warnings = (output.match(/warning:/g) || [])
+                            .length;
+                        if (errors === 0 && warnings === 0) return null;
+                        const parts = [];
+                        if (errors > 0)
+                            parts.push(
+                                `${errors} error${errors > 1 ? "s" : ""}`,
+                            );
+                        if (warnings > 0)
+                            parts.push(
+                                `${warnings} warning${warnings > 1 ? "s" : ""}`,
+                            );
+                        return { errors, warnings, label: parts.join(", ") };
+                    },
+                }));
+            });
+        </script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"
+            defer
+        ></script>
+    </body>
+</html>

@@ -8,6 +8,7 @@ from config.models import Exercise
 from utils.constants import (
     BANK_EXERCISES_PATH,
     CLI_FOLDER,
+    DASHBOARDS_FOLDER_PATH,
     DIFFICULTY_LABELS_FILE_NAME,
     HOOKS_FOLDER_PATH,
     LEARNING_PATHS_FOLDER_PATH,
@@ -203,6 +204,10 @@ class Publisher:
         self._copy_tree(Path(LEARNING_PATHS_FOLDER_PATH), argos_dir / "learningPaths")
         self._copy_tree(Path(HOOKS_FOLDER_PATH), argos_dir / "hooks")
         self._copy_tree(Path(CLI_FOLDER), argos_dir / "cli")
+        # Dashboard static assets; data.js is generated locally by 'argos check'.
+        self._copy_tree(
+            Path(DASHBOARDS_FOLDER_PATH), argos_dir / "dashboards", extra_ignore="data.js"
+        )
 
         # Root-level files
         root = Path(ROOT_FOLDER)
@@ -216,14 +221,15 @@ class Publisher:
         if not config.exists():
             config.write_text('{\n    "learningPaths": []\n}\n', encoding="utf-8")
 
-    def _copy_tree(self, src: Path, dest: Path) -> None:
+    def _copy_tree(self, src: Path, dest: Path, extra_ignore: str | None = None) -> None:
         if not src.exists():
             raise PublishError(f"Expected source folder not found: {src}")
         if dest.exists():
             shutil.rmtree(dest)
-        shutil.copytree(
-            src, dest, ignore=shutil.ignore_patterns("__pycache__", "*.pyc")
-        )
+        patterns = ["__pycache__", "*.pyc"]
+        if extra_ignore is not None:
+            patterns.append(extra_ignore)
+        shutil.copytree(src, dest, ignore=shutil.ignore_patterns(*patterns))
 
     def _write_catalogue(self, target: Path, exercises: list[Exercise]) -> None:
         readme = target / "README.md"

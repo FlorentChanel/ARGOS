@@ -1,0 +1,223 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Syne:wght@400..800&display=swap");
+
+:root {
+    --border-radius: 12px;
+    --accent-color: #4f8ef7;
+    --accent2-color: #38d9a9;
+    --accent3-color: #f7c948;
+    --bg-color: #0e1117;
+    --border-color: #2a3347;
+    --danger-color: #f06a6a;
+    --surface-color: #161b27;
+    --surface2-color: #1e2535;
+    --text-color: #e8edf5;
+    --text-muted-color: #7a8aa0;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg-color: #f0f2f7;
+        --border-color: #d0d8e8;
+        --danger-color: #e04f4f;
+        --surface-color: #ffffff;
+        --surface2-color: #e8ecf4;
+        --text-color: #1a2236;
+        --text-muted-color: #6b7a95;
+    }
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: "DM Mono", monospace;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+body > * {
+    width: 95%;
+}
+
+#no-data {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--text-muted-color);
+}
+
+#no-data code {
+    color: var(--accent-color);
+    background-color: var(--surface2-color);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+}
+
+header {
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 0.8rem;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    margin-top: 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    width: var(--pct);
+    background: linear-gradient(
+        to right,
+        var(--accent-color) 0%,
+        var(--accent2-color) calc(var(--pct))
+    );
+    border-radius: var(--border-radius);
+    transition: width 0.3s ease;
+}
+
+.progress-fill-full {
+    height: 100%;
+    width: 100%;
+    background: var(--accent2-color);
+    border-radius: var(--border-radius);
+    transition: width 0.3s ease;
+}
+
+.exercise-list {
+    list-style: none;
+    margin: 0.25rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.exercise-list > li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+    background-color: var(--bg-color);
+}
+
+.exercise-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.build-fail {
+    color: #d4920a;
+}
+
+.gtest-output {
+    font-size: 0.78rem;
+}
+
+.gtest-output > summary {
+    cursor: pointer;
+    color: var(--fail-color);
+    padding: 0.1rem 0;
+    user-select: none;
+}
+
+.gtest-output > summary:hover {
+    opacity: 0.75;
+}
+
+.gtest-output {
+    list-style: none;
+    margin: 0.2rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.compilation-output {
+    font-size: 0.78rem;
+}
+
+.compilation-output summary {
+    cursor: pointer;
+    color: var(--text-muted-color);
+    padding: 0.1rem 0;
+    user-select: none;
+}
+
+.compilation-output.has-errors summary {
+    color: var(--fail-color);
+}
+
+.compilation-output.has-warnings summary {
+    color: #d4920a;
+}
+
+.compilation-output summary:hover {
+    opacity: 0.75;
+}
+
+.compilation-output pre,
+.gtest-output pre {
+    margin: 0.3rem 0 0;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--surface2-color);
+    border-radius: 6px;
+    overflow-x: auto;
+    max-height: 20em;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: var(--text-color);
+    font-family: "DM Mono", monospace;
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+.exercise-id {
+    color: var(--text-muted-color);
+    flex-shrink: 0;
+    font-size: 0.75rem;
+}
+
+.exercise-name {
+    flex: 1;
+    color: var(--text-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.exercise-pts {
+    color: var(--text-muted-color);
+    flex-shrink: 0;
+}
+
+.pass {
+    color: var(--accent2-color);
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.fail {
+    color: var(--danger-color);
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+    body > * {
+        width: 100%;
+    }
+}

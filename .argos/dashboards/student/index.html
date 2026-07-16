@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <title>ARGOS Dashboard</title>
+    </head>
+    <body x-data="dashboard">
+        <div id="no-data" x-show="!d || d.learningPaths.length === 0">
+            <p>No data yet.</p>
+            <p>
+                Run ARGOS <code>check</code> command to generate your dashboard.
+            </p>
+        </div>
+
+        <header x-show="d && d.learningPaths.length > 0">
+            <div
+                id="profile"
+                x-data="user"
+                x-init="d?.username && loadUser(d.username)"
+            >
+                <img
+                    :src="avatarURL"
+                    :alt="fullname"
+                    class="profile-picture"
+                    x-show="avatarURL"
+                />
+                <div x-show="!avatarURL" class="picture-placeholder"></div>
+                <div id="profile-info">
+                    <h1 x-text="fullname"></h1>
+                    <p x-text="'@' + username"></p>
+                </div>
+            </div>
+            <div id="tabs" x-show="d.learningPaths.length > 1">
+                <template x-for="lp in d.learningPaths" :key="lp.name">
+                    <a
+                        :class="{ active: lp === path }"
+                        @click.prevent="path = lp"
+                    >
+                        <span
+                            class="color-dot"
+                            :style="'background-color: ' + lp.color"
+                        ></span>
+                        <p x-text="lp.name"></p>
+                        <p
+                            class="circle-progress"
+                            x-text="(lp.progression.completed / lp.progression.total * 100).toFixed(0) + '%'"
+                        ></p>
+                    </a>
+                </template>
+            </div>
+        </header>
+
+        <main x-show="d">
+            <div>
+                <h2>Total Progression</h2>
+                <div class="progress-container">
+                    <p class="progress">
+                        <span x-text="path.progression.completed"></span>
+                        <span x-text="' / ' + path.progression.total"></span>
+                    </p>
+                    <p
+                        class="progress-percentage"
+                        x-text="(path.progression.completed / path.progression.total * 100).toFixed(2) + '%'"
+                    ></p>
+                </div>
+                <div class="progress-bar">
+                    <div
+                        class="progress-fill"
+                        :style="`--pct: ${(path.progression.completed / path.progression.total * 100).toFixed(1)}%`"
+                    ></div>
+                </div>
+            </div>
+            <div class="chapter-container">
+                <h2>Series</h2>
+                <template x-for="serie in path.series" :key="serie.name">
+                    <article x-data="{ open: false }">
+                        <div class="serie-header" @click="open = !open">
+                            <h3 x-text="serie.name"></h3>
+                            <div class="serie-header-right">
+                                <p
+                                    x-text="serie.points_earned + ' pts / ' + serie.points_available + ' pts'"
+                                ></p>
+                                <span
+                                    class="toggle-icon"
+                                    x-text="open ? '▲' : '▼'"
+                                ></span>
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div
+                                :class="serie.completed ? 'progress-fill-full' : 'progress-fill'"
+                                :style="`--pct: ${(serie.points_earned / serie.points_available * 100).toFixed(1)}%`"
+                            ></div>
+                        </div>
+                        <ul x-show="open" class="exercise-list">
+                            <template
+                                x-for="ex in serie.exercises"
+                                :key="ex.exercise_id"
+                            >
+                                <li>
+                                    <div class="exercise-row">
+                                        <span
+                                            :class="ex.passed ? 'pass' : (ex.total_tests !== null ? 'fail' : 'build-fail')"
+                                            x-text="ex.passed ? '✓' : (ex.total_tests !== null ? '✗' : '⚙')"
+                                        ></span>
+                                        <span
+                                            class="exercise-id"
+                                            x-text="'#' + ex.exercise_id"
+                                        ></span>
+                                        <span
+                                            class="exercise-name"
+                                            x-text="ex.exercise_name"
+                                        ></span>
+                                        <span
+                                            class="exercise-pts"
+                                            x-text="ex.points_earned + ' / ' + ex.points_available + ' pts'"
+                                        ></span>
+                                    </div>
+                                    <template
+                                        x-if="ex.gtest_output && !ex.passed"
+                                    >
+                                        <details class="gtest-output">
+                                            <summary>Test output</summary>
+                                            <pre
+                                                x-html="ansiToHtml(ex.gtest_output)"
+                                            ></pre>
+                                        </details>
+                                    </template>
+                                    <template
+                                        x-if="compilationSummary(ex.compilation_output)"
+                                    >
+                                        <details
+                                            class="compilation-output"
+                                            :class="compilationSummary(ex.compilation_output)?.errors ? 'has-errors' : 'has-warnings'"
+                                        >
+                                            <summary
+                                                x-text="compilationSummary(ex.compilation_output)?.label"
+                                            ></summary>
+                                            <pre
+                                                x-html="ansiToHtml(ex.compilation_output)"
+                                            ></pre>
+                                        </details>
+                                    </template>
+                                </li>
+                            </template>
+                        </ul>
+                    </article>
+                </template>
+            </div>
+            <div class="skills-container">
+                <h2>Skills</h2>
+                <canvas id="skills-chart"></canvas>
+            </div>
+        </main>
+
+        <script>
+            window.ARGOS_DATA = null;
+        </script>
+        <script src="data.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+            function getCSSVar(name) {
+                return getComputedStyle(document.documentElement)
+                    .getPropertyValue(name)
+                    .trim();
+            }
+
+            function buildChartOptions() {
+                return {
+                    responsive: true,
+                    scales: {
+                        r: {
+                            grid: {
+                                color: getCSSVar("--border-color"),
+                                lineWidth: 1,
+                            },
+                            angleLines: {
+                                color: getCSSVar("--border-color"),
+                                lineWidth: 1,
+                            },
+                            pointLabels: {
+                                color: getCSSVar("--text-color"),
+                                font: {
+                                    family: "'DM Mono', monospace",
+                                    size: 11,
+                                },
+                            },
+                            ticks: {
+                                display: false,
+                                backdropColor: "transparent",
+                            },
+                            min: -15,
+                            suggestedMax: 100,
+                        },
+                    },
+                    plugins: { legend: { display: false } },
+                };
+            }
+
+            function skillPct(c) {
+                return c.points_available > 0
+                    ? Math.round((c.points_earned / c.points_available) * 100)
+                    : 0;
+            }
+
+            let chart;
+
+            function updateChart(skills) {
+                chart.data.labels = skills.map((c) => c.name);
+                chart.data.datasets[0].data = skills.map(skillPct);
+                chart.update();
+            }
+
+            function initChart(skills) {
+                chart = new Chart(document.getElementById("skills-chart"), {
+                    type: "radar",
+                    data: {
+                        labels: skills.map((c) => c.name),
+                        datasets: [
+                            {
+                                label: "",
+                                data: skills.map(skillPct),
+                                backgroundColor: "rgba(79, 142, 247, 0.3)",
+                                borderColor: "#4f8ef7",
+                                borderWidth: 2,
+                                pointBackgroundColor: "#4f8ef7",
+                                pointBorderColor: "#4f8ef7",
+                                pointRadius: 4,
+                                pointHoverRadius: 6,
+                            },
+                        ],
+                    },
+                    options: buildChartOptions(),
+                });
+
+                window
+                    .matchMedia("(prefers-color-scheme: dark)")
+                    .addEventListener("change", () => {
+                        chart.options = buildChartOptions();
+                        chart.update();
+                    });
+            }
+        </script>
+        <script src="reload.js"></script>
+        <script type="module">
+            import { AnsiUp } from "https://cdn.jsdelivr.net/npm/@hashicorp/ansi_up@6.0.8/+esm";
+            document.addEventListener("alpine:init", () => {
+                Alpine.data("dashboard", () => ({
+                    d: window.ARGOS_DATA,
+
+                    ansiToHtml(text) {
+                        if (!text) return "";
+                        const au = new AnsiUp();
+                        return au.ansi_to_html(text);
+                    },
+
+                    compilationSummary(output) {
+                        if (!output) return null;
+                        console.log(output);
+                        const errors = (output.match(/error:/g) || []).length;
+                        const warnings = (output.match(/warning:/g) || [])
+                            .length;
+                        if (errors === 0 && warnings === 0) return null;
+                        const parts = [];
+                        if (errors > 0)
+                            parts.push(
+                                `${errors} error${errors > 1 ? "s" : ""}`,
+                            );
+                        if (warnings > 0)
+                            parts.push(
+                                `${warnings} warning${warnings > 1 ? "s" : ""}`,
+                            );
+                        return { errors, warnings, label: parts.join(", ") };
+                    },
+                    path:
+                        window.ARGOS_DATA?.learningPaths.find(
+                            (p) => p.active,
+                        ) ?? null,
+
+                    init() {
+                        if (this.d) {
+                            initChart(this.path.skills);
+                            this.$watch("path", (p) =>
+                                updateChart(p.skills),
+                            );
+                        }
+                        document.addEventListener("argos:data-changed", (e) => {
+                            const firstLoad = !this.d;
+                            this.d = e.detail;
+                            this.path =
+                                e.detail?.learningPaths.find((p) => p.active) ??
+                                null;
+                            if (firstLoad) {
+                                this.$nextTick(() => {
+                                    initChart(this.path.skills);
+                                    this.$watch("path", (p) =>
+                                        updateChart(p.skills),
+                                    );
+                                });
+                            }
+                        });
+                    },
+                }));
+
+                Alpine.data("user", () => ({
+                    username: "",
+                    fullname: "",
+                    avatarURL: null,
+
+                    init() {
+                        document.addEventListener("argos:data-changed", (e) => {
+                            if (e.detail?.username)
+                                this.loadUser(e.detail.username);
+                        });
+                    },
+
+                    async loadUser(username) {
+                        if (!username) {
+                            this.fullname = "No name available";
+                            this.avatarURL = null;
+                            return;
+                        }
+                        this.username = username;
+                        const response = await fetch(
+                            `https://api.github.com/users/${username}`,
+                        );
+                        if (!response.ok) {
+                            this.fullname = username;
+                            this.avatarURL = null;
+                            return;
+                        }
+                        const data = await response.json();
+                        this.fullname = data.name;
+                        this.avatarURL = data.avatar_url;
+                    },
+                }));
+            });
+        </script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"
+            defer
+        ></script>
+    </body>
+</html>

@@ -1,0 +1,196 @@
+@import url("../shared/base.css");
+
+header {
+    padding: 1rem 1.5rem;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+header h1 {
+    font-family: "Syne", sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 0;
+}
+
+header p {
+    color: var(--text-muted-color);
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+main {
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.sort-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.8rem;
+    color: var(--text-muted-color);
+}
+
+.sort-bar span {
+    cursor: pointer;
+    user-select: none;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    transition: background-color 0.15s;
+}
+
+.sort-bar span:hover,
+.sort-bar span.active {
+    background-color: var(--surface2-color);
+    color: var(--text-color);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+thead th {
+    text-align: left;
+    padding: 0.6rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: var(--text-muted-color);
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+thead th.serie-header {
+    text-align: right;
+}
+
+thead th.right {
+    text-align: right;
+}
+
+tbody tr.student-row {
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.1s;
+}
+
+tbody tr.student-row:hover {
+    background-color: var(--surface2-color);
+}
+
+tbody tr.student-row:last-child {
+    border-bottom: none;
+}
+
+tbody td {
+    padding: 0.6rem 1rem;
+    vertical-align: middle;
+}
+
+.username-cell {
+    font-weight: 500;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.toggle-icon {
+    font-size: 0.65rem;
+    color: var(--text-muted-color);
+}
+
+.serie-cell {
+    text-align: right;
+    white-space: nowrap;
+    color: var(--text-muted-color);
+}
+
+
+.serie-cell .pts {
+    color: var(--text-color);
+}
+
+.total-cell {
+    text-align: right;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.badge-pass {
+    background-color: color-mix(in srgb, var(--accent2-color) 15%, transparent);
+    color: var(--accent2-color);
+}
+
+.badge-fail {
+    background-color: color-mix(in srgb, var(--danger-color) 15%, transparent);
+    color: var(--danger-color);
+}
+
+.badge-invalid {
+    background-color: var(--surface2-color);
+    color: var(--text-muted-color);
+}
+
+.badge-tampered {
+    background-color: color-mix(in srgb, var(--accent3-color) 20%, transparent);
+    color: var(--accent3-color);
+    border: 1px solid color-mix(in srgb, var(--accent3-color) 40%, transparent);
+}
+
+.na {
+    color: var(--text-muted-color);
+    font-style: italic;
+}
+
+tr.detail-row td {
+    padding: 0;
+    background-color: var(--surface2-color);
+}
+
+.detail-inner {
+    padding: 1rem 1rem 1rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.detail-serie h4 {
+    font-family: "Syne", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    margin: 0 0 0.4rem;
+    color: var(--text-color);
+}
+
+@media (max-width: 640px) {
+    thead th,
+    tbody td {
+        padding: 0.5rem 0.6rem;
+    }
+}
+
+.gtest-output pre,
+.compilation-output pre {
+    overflow-x: auto;
+    white-space: pre;
+}
