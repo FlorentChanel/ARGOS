@@ -81,7 +81,9 @@ class CheckCommand(Command):
         summary = self._score_calculator.compute(report, scope)
         print(summary.to_str())
 
-        self._dashboard_generator.generate(summary, Path(DASHBOARD_DATA_FILE_PATH))
+        self._dashboard_generator.generate(
+            summary, Path(DASHBOARD_DATA_FILE_PATH), self._context.learning_paths
+        )
         print("\n")
         Output.path("Dashboard", Path(DASHBOARD_INDEX_FILE_PATH))
         if self._argos_config.auto_open_browser:

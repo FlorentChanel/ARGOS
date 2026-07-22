@@ -3,6 +3,7 @@ from dataclasses import asdict
 from pathlib import Path
 from typing import Any, cast
 
+from config.models import LearningPath
 from git_bindings import GitBindings
 from scoring.score_summary import (
     ExerciseResult,
@@ -18,9 +19,21 @@ class DashboardGenerator:
     def __init__(self, git_bindings: GitBindings) -> None:
         self._git_bindings = git_bindings
 
-    def generate(self, summary: ScoreSummary, output_path: Path) -> None:
+    def generate(
+        self, summary: ScoreSummary, output_path: Path, configured_lps: list[LearningPath]
+    ) -> None:
+        # configured_lps must be the FULL set of selected LPs, never a scope-filtered subset,
+        # so that a scoped check does not accidentally prune historical data for other LPs/exercises.
+        valid_lp_ids = frozenset(lp.id for lp in configured_lps)
+        valid_exercise_ids = frozenset(
+            e.id for lp in configured_lps for serie in lp.series for e in serie.exercises
+        )
         existing = self._read_existing_summary(output_path)
-        merged = self._merge_summaries(existing, summary) if existing else summary
+        merged = (
+            self._merge_summaries(existing, summary, valid_lp_ids, valid_exercise_ids)
+            if existing
+            else summary
+        )
         data = self._build_data(merged)
         js = f"window.ARGOS_DATA = {json.dumps(data, indent=4, ensure_ascii=False)};\n"
         output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -45,15 +58,42 @@ class DashboardGenerator:
             return None
 
     def _merge_summaries(
-        self, existing: ScoreSummary, new: ScoreSummary
+        self,
+        existing: ScoreSummary,
+        new: ScoreSummary,
+        valid_lp_ids: frozenset[str],
+        valid_exercise_ids: frozenset[str],
     ) -> ScoreSummary:
-        lps_by_id = {lp.id: lp for lp in existing.learning_paths}
+        # Prune deselected LPs and stale exercises upfront so that LPs with no
+        # new results in this run (empty scope) are still cleaned up.
+        lps_by_id = {
+            lp.id: self._prune_lp_exercises(lp, valid_exercise_ids)
+            for lp in existing.learning_paths
+            if lp.id in valid_lp_ids
+        }
         for new_lp in new.learning_paths:
             if new_lp.id not in lps_by_id:
                 lps_by_id[new_lp.id] = new_lp
             else:
                 lps_by_id[new_lp.id] = self._merge_lp(lps_by_id[new_lp.id], new_lp)
         return ScoreSummary(learning_paths=list(lps_by_id.values()))
+
+    def _prune_lp_exercises(
+        self, lp: LearningPathResult, valid_exercise_ids: frozenset[str]
+    ) -> LearningPathResult:
+        pruned_series = []
+        for serie in lp.series:
+            valid_exs = [e for e in serie.exercises if e.exercise_id in valid_exercise_ids]
+            if valid_exs:
+                pruned_series.append(
+                    SerieResult(
+                        name=serie.name,
+                        points_earned=sum(e.points_earned for e in valid_exs),
+                        points_to_complete=serie.points_to_complete,
+                        exercises=valid_exs,
+                    )
+                )
+        return LearningPathResult(id=lp.id, name=lp.name, series=pruned_series)
 
     def _merge_lp(
         self, existing: LearningPathResult, new: LearningPathResult
@@ -80,7 +120,7 @@ class DashboardGenerator:
         return SerieResult(
             name=existing.name,
             points_earned=sum(e.points_earned for e in updated),
-            points_to_complete=existing.points_to_complete,
+            points_to_complete=new.points_to_complete,
             exercises=updated,
         )
 

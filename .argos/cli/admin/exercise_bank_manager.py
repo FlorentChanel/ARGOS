@@ -1,6 +1,7 @@
 import re
 from pathlib import Path
 
+from config.models import ExerciseLanguage
 from git_bindings import GitBindings
 from utils.constants import (
     BANK_EXERCISES_PATH,
@@ -24,7 +25,9 @@ class ExerciseBankManager:
                     ids.append(int(parts[1]))
         return str((max(ids) + 1) if ids else 1).zfill(4)
 
-    def create(self, slug: str) -> tuple[Path, Path]:
+    def create(
+        self, slug: str, language: ExerciseLanguage = ExerciseLanguage.C
+    ) -> tuple[Path, Path]:
         """Scaffolds a new exercise (regime A) matching the frozen bank structure."""
         exercise_id = self.next_id()
         fullname = f"{EXERCISE_PREFIX}{exercise_id}_{slug}"
@@ -42,8 +45,10 @@ class ExerciseBankManager:
 
         header_guard = f"{fullname.upper()}_H"
         display_name = re.sub(r"(?<!^)(?=[A-Z])", " ", slug)
+        ext = ".c" if language == ExerciseLanguage.C else ".cpp"
+        lang_value = language.value
 
-        (exercise_dir / f"{fullname}.c").write_text(
+        (exercise_dir / f"{fullname}{ext}").write_text(
             "// Author: HE-Arc\n"
             "\n"
             "// Standard includes\n"
@@ -78,23 +83,42 @@ class ExerciseBankManager:
             encoding="utf-8",
         )
 
-        (exercise_dir / "main.c").write_text(
-            "// Author: HE-Arc\n"
-            "\n"
-            "// Standard includes\n"
-            "#include <stdio.h>\n"
-            "\n"
-            "// Local includes\n"
-            f'#include "{fullname}.h"\n'
-            "\n"
-            "int main(void)\n"
-            "{\n"
-            f"  {fullname}();\n"
-            "\n"
-            "  return 0;\n"
-            "}\n",
-            encoding="utf-8",
-        )
+        if language == ExerciseLanguage.C:
+            (exercise_dir / "main.c").write_text(
+                "// Author: HE-Arc\n"
+                "\n"
+                "// Standard includes\n"
+                "#include <stdio.h>\n"
+                "\n"
+                "// Local includes\n"
+                f'#include "{fullname}.h"\n'
+                "\n"
+                "int main(void)\n"
+                "{\n"
+                f"  {fullname}();\n"
+                "\n"
+                "  return 0;\n"
+                "}\n",
+                encoding="utf-8",
+            )
+        else:
+            (exercise_dir / "main.cpp").write_text(
+                "// Author: HE-Arc\n"
+                "\n"
+                "// Standard includes\n"
+                "#include <iostream>\n"
+                "\n"
+                "// Local includes\n"
+                f'#include "{fullname}.h"\n'
+                "\n"
+                "int main()\n"
+                "{\n"
+                f"  {fullname}();\n"
+                "\n"
+                "  return 0;\n"
+                "}\n",
+                encoding="utf-8",
+            )
 
         (exercise_dir / METADATA_FILE_NAME).write_text(
             "{\n"
@@ -102,7 +126,7 @@ class ExerciseBankManager:
             f'  "name": "{display_name}",\n'
             '  "description": "TODO",\n'
             '  "difficulty": "easy",\n'
-            '  "language": "c",\n'
+            f'  "language": "{lang_value}",\n'
             '  "skills": []\n'
             "}\n",
             encoding="utf-8",
@@ -115,7 +139,7 @@ class ExerciseBankManager:
             "\n"
             "## Signature\n"
             "\n"
-            "```c\n"
+            f"```{lang_value}\n"
             f"void {fullname}(void);\n"
             "```\n"
             "\n"
@@ -136,7 +160,7 @@ class ExerciseBankManager:
             "\n"
             "## Signature\n"
             "\n"
-            "```c\n"
+            f"```{lang_value}\n"
             f"void {fullname}(void);\n"
             "```\n"
             "\n"
@@ -150,11 +174,16 @@ class ExerciseBankManager:
             encoding="utf-8",
         )
 
-        (unit_test_dir / f"{binary_name}.cpp").write_text(
-            'extern "C"\n'
-            "{\n"
-            f'  #include "../../../Exercises/{fullname}/{fullname}.c"\n'
-            "}\n"
+        exercise_include = ('extern "C"\n'
+                        "{\n"
+                        f'  #include "../../../Exercises/{fullname}/{fullname}.c"\n'
+                        "}\n")
+
+        if language == ExerciseLanguage.CPP:
+            exercise_include = f'#include "../../../Exercises/{fullname}/{fullname}.cpp"\n'
+
+        unit_test_content = (
+            f"{exercise_include}"
             "\n"
             "#include <gtest/gtest.h>\n"
             "\n"
@@ -164,8 +193,11 @@ class ExerciseBankManager:
             "{\n"
             f"  // TODO: implement the tests for {fullname}\n"
             "  EXPECT_EQ(1, 1);\n"
-            "}\n",
-            encoding="utf-8",
+            "}\n"
+        )
+
+        (unit_test_dir / f"{binary_name}.cpp").write_text(
+            unit_test_content, encoding="utf-8"
         )
 
         return exercise_dir, unit_test_dir

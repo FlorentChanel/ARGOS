@@ -139,6 +139,9 @@ class WorkspaceSynchronizer:
 
         for bank_file in exercise.bank_exercise_path.iterdir():
             if not ExerciseUtils.is_source_file(bank_file):
+                if ExerciseUtils.is_copy_only_file(bank_file):
+                    logger.debug("Copying copy_only file %s", bank_file.name)
+                    shutil.copy2(bank_file, exercise.root_path / bank_file.name)
                 continue
 
             student_file = exercise.root_path / bank_file.name

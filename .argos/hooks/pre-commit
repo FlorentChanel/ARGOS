@@ -11,6 +11,10 @@ remote_url=$(git remote get-url origin)
 # Authoring repo (<owner>/ARGOS-Profs): validate the bank structure when the
 # bank or the unit tests are part of the commit.
 if [[ "$remote_url" =~ [/:]ARGOS-Profs(\.git)?$ ]]; then
+    if git diff --cached --name-only | grep -qE '^\.argos-config\.json$'; then
+        echo "ERROR: .argos-config.json is local student state and must not be committed to ARGOS-Profs."
+        exit 1
+    fi
     if git diff --cached --name-only | grep -qE '^\.argos/(exercises|unitTests)/'; then
         echo "Bank changes detected, validating exercise structure..."
         $ARGOS_CLI admin check-structure

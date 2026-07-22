@@ -3,7 +3,7 @@ from pathlib import Path
 
 from config.models import Exercise
 
-from .constants import POSSIBLE_EXERCISE_EXTENSIONS
+from .constants import COPY_ONLY_EXERCISE_EXTENSIONS, POSSIBLE_EXERCISE_EXTENSIONS
 
 
 class ExerciseUtils:
@@ -45,3 +45,7 @@ class ExerciseUtils:
         Returns True if the file is a source file, False otherwise.
         """
         return file_path.suffix in POSSIBLE_EXERCISE_EXTENSIONS
+
+    @staticmethod
+    def is_copy_only_file(file_path: Path) -> bool:
+        return file_path.suffix in COPY_ONLY_EXERCISE_EXTENSIONS

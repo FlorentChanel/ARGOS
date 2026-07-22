@@ -222,6 +222,11 @@ class Publisher:
             if src.exists():
                 shutil.copy2(src, target / name)
 
+        # GitHub Actions workflows
+        github_dir = root / ".github"
+        if github_dir.exists():
+            self._copy_tree(github_dir, target / ".github")
+
         # Default CLI config, only when absent (never clobber a student's selection)
         config = target / ".argos-config.json"
         if not config.exists():
