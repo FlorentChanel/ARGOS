@@ -66,7 +66,7 @@ triggers it automatically).
 <!-- CATALOGUE:BEGIN -->
 | ID | Exercise | Tested skills | Difficulty |
 |----|----------|---------------|------------|
-| 0001 | [Print Hello World](.argos/exercises/ex_0001_PrintHelloWorld/README.en.md) · [fr](.argos/exercises/ex_0001_PrintHelloWorld/README.fr.md) | basics, formatted input/output | 🟢 easy |
+| 0001 | [Print Hello World](.argos/exercises/ex_0001_PrintHelloWorld/README.en.md) · [fr](.argos/exercises/ex_0001_PrintHelloWorld/README.fr.md) | basics | 🟢 easy |
 | 0002 | [Print Math Calc](.argos/exercises/ex_0002_PrintMathCalc/README.en.md) · [fr](.argos/exercises/ex_0002_PrintMathCalc/README.fr.md) | basics, arithmetic operators | 🟢 easy |
 | 0003 | [Some Calculus](.argos/exercises/ex_0003_SomeCalculus/README.en.md) · [fr](.argos/exercises/ex_0003_SomeCalculus/README.fr.md) | basics, arithmetic operators, variables and types | 🟢 easy |
 | 0004 | [Swap](.argos/exercises/ex_0004_Swap/README.en.md) · [fr](.argos/exercises/ex_0004_Swap/README.fr.md) | basics, variables and types, formatted input/output | 🟢 easy |

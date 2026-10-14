@@ -8,12 +8,10 @@
 
 **Compétences testées :**
 - premiers pas
-- entrées-sorties formatées
 
 ## Tâche
 
-Complétez **`ex_0001_PrintHelloWorld`** pour qu'elle affiche `hello, world`
-suivi d'un retour à la ligne dans la console.
+Complétez **`ex_0001_PrintHelloWorld`** pour qu'elle affiche **`hello, world`** suivi d'un retour à la ligne dans la console.
 
 ## Signature
 

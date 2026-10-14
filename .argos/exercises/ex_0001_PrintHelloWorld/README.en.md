@@ -8,12 +8,10 @@
 
 **Tested skills:**
 - basics
-- formatted input/output
 
 ## Task
 
-Complete **`ex_0001_PrintHelloWorld`** so that it prints `hello, world`
-followed by a newline to the console.
+Complete **`ex_0001_PrintHelloWorld`** so that it prints **`hello, world`** followed by a newline to the console.
 
 ## Signature
 
