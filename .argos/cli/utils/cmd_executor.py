@@ -15,8 +15,9 @@ class CmdResult:
 
 
 class CmdExecutor:
-    def __init__(self, cmd: list[str]):
+    def __init__(self, cmd: list[str], cwd: str | None = None):
         self.cmd = cmd
+        self.cwd = cwd
 
     def execute(
         self,
@@ -67,6 +68,7 @@ class CmdExecutor:
                 check=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
+                cwd=self.cwd,
             )
             return CmdResult(
                 stdout=result.stdout.decode("utf-8").rstrip(),

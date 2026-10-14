@@ -500,8 +500,14 @@ class AdminCommand(Command):
             )
             return 1
 
+        lang_raw = (input("Language [c/cpp] (default: c): ").strip().lower() or "c")
+        if lang_raw not in ("c", "cpp"):
+            Output.error("Language must be 'c' or 'cpp'.", show_log_link=False)
+            return 1
+        language = ExerciseLanguage(lang_raw)
+
         try:
-            exercise_dir, unit_test_dir = self._exercise_bank_manager.create(slug)
+            exercise_dir, unit_test_dir = self._exercise_bank_manager.create(slug, language)
         except FileExistsError as e:
             Output.error(str(e))
             return 1

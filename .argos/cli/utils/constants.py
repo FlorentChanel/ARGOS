@@ -6,7 +6,7 @@ from pathlib import Path
 LOG_LEVEL = DEBUG
 
 CLI_NAME = "argos"
-CLI_VERSION = "0.4.0"
+CLI_VERSION = "0.5.1"
 CLI_VERSION_STRING = f"{CLI_NAME} version {CLI_VERSION}"
 
 GTEST_OUTPUT_ENV_VAR = "GTEST_OUTPUT"
@@ -31,12 +31,14 @@ SECTION_BEGIN_TEMPLATE = "//@ {name}:BEGIN"
 SECTION_END_TEMPLATE = "//@ {name}:END"
 
 SOLUTION_SECTION_NAME = "SOLUTION"
-TODO_SECTION_NAME = "TODO"
 
 ARGOS_HTTP_GITHUB_URL_TEMPLATE = "https://github.com/{username}/ARGOS.git"
 ARGOS_SSH_GITHUB_URL_TEMPLATE = "git@github.com:{username}/ARGOS.git"
 
-POSSIBLE_EXERCISE_EXTENSIONS = [".c", ".cpp"]
+# Student-editable sources: merged 3-way by sync and compared for touched-detection.
+# Headers are included so that regime-B work (student-written .h) is preserved.
+SYNC_MERGE_EXTENSIONS = [".c", ".cpp", ".h", ".hpp"]
+COPY_ONLY_EXERCISE_EXTENSIONS: set[str] = {".md"}
 
 DIFFICULTY_POINTS: dict[str, int] = {"easy": 1, "medium": 2, "hard": 5}
 

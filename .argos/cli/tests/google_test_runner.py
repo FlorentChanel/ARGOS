@@ -47,7 +47,11 @@ class GoogleTestRunner:
         try:
             environ["GTEST_COLOR"] = "yes"
             environ[GTEST_OUTPUT_ENV_VAR] = f"xml:{temp_path}"
-            result = CmdExecutor([str(binary_path)]).execute(output_on_error=False)
+            # Run from the exercise build folder so tests can open their
+            # stdin fixtures (*_inputs.txt, shipped there by CMake) by name.
+            result = CmdExecutor(
+                [str(binary_path)], cwd=str(exercise_path)
+            ).execute(output_on_error=False)
 
             with open(temp_path, encoding="utf-8") as f:
                 file_content = f.read()

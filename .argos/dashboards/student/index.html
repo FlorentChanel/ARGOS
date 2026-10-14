@@ -259,7 +259,6 @@
 
                     compilationSummary(output) {
                         if (!output) return null;
-                        console.log(output);
                         const errors = (output.match(/error:/g) || []).length;
                         const warnings = (output.match(/warning:/g) || [])
                             .length;

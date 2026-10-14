@@ -7,7 +7,6 @@ from utils.constants import ROOT_CONFIG_PATH
 class ArgosConfig:
     def __init__(self):
         self._config_path = Path(ROOT_CONFIG_PATH)
-        self.auto_open_browser = True
         self.learning_paths = self._parse_config()
 
     def save_config(self) -> None:
@@ -62,12 +61,5 @@ class ArgosConfig:
                 raise ValueError(
                     f"All learningPaths should be strings, but found a non-string value: '{path}'"
                 )
-
-        if "autoOpenBrowser" not in config_data:
-            self.auto_open_browser = True
-        else:
-            if not isinstance(config_data["autoOpenBrowser"], bool):
-                raise ValueError("'autoOpenBrowser' should be a boolean")
-            self.auto_open_browser = config_data["autoOpenBrowser"]
 
         return config_data["learningPaths"]

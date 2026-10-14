@@ -3,7 +3,7 @@ from pathlib import Path
 
 from config.models import Exercise
 
-from .constants import POSSIBLE_EXERCISE_EXTENSIONS
+from .constants import COPY_ONLY_EXERCISE_EXTENSIONS, SYNC_MERGE_EXTENSIONS
 
 
 class ExerciseUtils:
@@ -41,7 +41,11 @@ class ExerciseUtils:
     @staticmethod
     def is_source_file(file_path: Path) -> bool:
         """
-        Determines if the given file is a source file based on its extension.
-        Returns True if the file is a source file, False otherwise.
+        Determines if the given file is a student-editable source file (headers
+        included) based on its extension.
         """
-        return file_path.suffix in POSSIBLE_EXERCISE_EXTENSIONS
+        return file_path.suffix in SYNC_MERGE_EXTENSIONS
+
+    @staticmethod
+    def is_copy_only_file(file_path: Path) -> bool:
+        return file_path.suffix in COPY_ONLY_EXERCISE_EXTENSIONS

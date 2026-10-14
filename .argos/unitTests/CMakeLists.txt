@@ -52,11 +52,22 @@ foreach(dir ${exercise_dirs})
   set(test_target ${exercise_id}_TEST)
 
   add_executable(${test_target} ${dir}/${test_target}.cpp)
-  target_link_libraries(${test_target} argos_common GTest::gtest_main)
+  target_link_libraries(${test_target} argos_common m GTest::gtest_main)
   # Same binary layout as the former per-exercise CMakeLists (the CLI test
   # runner looks the binaries up under BUILD/<exercise-fullname>/).
   set_target_properties(${test_target} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${dir})
-  gtest_discover_tests(${test_target} EXTRA_ARGS --gtest_color=1)
+  # Tests run from the exercise build folder, wherever they are launched
+  # from (CLI runner, ctest, IDE): stdin fixtures resolve by name there.
+  gtest_discover_tests(${test_target} EXTRA_ARGS --gtest_color=1
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/${dir})
+
+  # Stdin fixtures: shipped next to the binary, where the CLI runs the tests.
+  file(GLOB input_files ${CMAKE_CURRENT_SOURCE_DIR}/${dir}/*_inputs.txt)
+  foreach(input_file ${input_files})
+    get_filename_component(input_name ${input_file} NAME)
+    add_custom_command(TARGET ${test_target} POST_BUILD
+      COMMAND ${CMAKE_COMMAND} -E copy_if_different ${input_file} ${CMAKE_BINARY_DIR}/${dir}/${input_name})
+  endforeach()
 
   # Sandbox target, only when the student working copy exists.
   set(sandbox_dir ${EXERCISES_DIR}/${dir})
@@ -67,6 +78,7 @@ foreach(dir ${exercise_dirs})
     else()
       add_executable(${exercise_id} ${sandbox_dir}/main.c)
     endif()
+    target_link_libraries(${exercise_id} m)
     set_target_properties(${exercise_id} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${dir})
   endif()
 endforeach()

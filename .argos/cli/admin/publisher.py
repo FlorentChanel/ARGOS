@@ -1,4 +1,5 @@
 import json
+import re
 import shutil
 from logging import getLogger
 from pathlib import Path
@@ -222,6 +223,11 @@ class Publisher:
             if src.exists():
                 shutil.copy2(src, target / name)
 
+        # GitHub Actions workflows
+        github_dir = root / ".github"
+        if github_dir.exists():
+            self._copy_tree(github_dir, target / ".github")
+
         # Default CLI config, only when absent (never clobber a student's selection)
         config = target / ".argos-config.json"
         if not config.exists():
@@ -249,10 +255,15 @@ class Publisher:
             )
             content = content.rstrip() + f"\n\n{CATALOGUE_BEGIN}\n{CATALOGUE_END}\n"
 
-        rows = [
-            "| ID | Exercise | Tested skills | Difficulty |",
-            "|----|----------|---------------|------------|",
-        ]
+        # Merge with the rows already present so that a partial publish
+        # (--exercises) never drops previously published exercises.
+        block = content.split(CATALOGUE_BEGIN)[1].split(CATALOGUE_END)[0]
+        rows_by_id: dict[str, str] = {}
+        for line in block.splitlines():
+            match = re.match(r"^\|\s*(\d{4})\s*\|", line)
+            if match:
+                rows_by_id[match.group(1)] = line.rstrip()
+
         for exercise in exercises:
             meta = exercise.metadata
             base = f".argos/exercises/{exercise.fullname}"
@@ -263,7 +274,15 @@ class Publisher:
             skills = ", ".join(self._skill_label(k, "en") for k in meta.skills)
             badge = DIFFICULTY_BADGES.get(meta.difficulty.value, "")
             difficulty = f"{badge} {self._difficulty_label(meta.difficulty.value, 'en')}"
-            rows.append(f"| {exercise.id} | {name_cell} | {skills} | {difficulty} |")
+            rows_by_id[exercise.id] = (
+                f"| {exercise.id} | {name_cell} | {skills} | {difficulty} |"
+            )
+
+        rows = [
+            "| ID | Exercise | Tested skills | Difficulty |",
+            "|----|----------|---------------|------------|",
+            *(rows_by_id[exercise_id] for exercise_id in sorted(rows_by_id)),
+        ]
 
         table = "\n".join(rows)
         before = content.split(CATALOGUE_BEGIN)[0]
@@ -271,4 +290,8 @@ class Publisher:
         content = f"{before}{CATALOGUE_BEGIN}\n{table}\n{CATALOGUE_END}{after}"
 
         readme.write_text(content, encoding="utf-8", newline="")
-        logger.info("Catalogue written with %d exercises", len(exercises))
+        logger.info(
+            "Catalogue written with %d exercises (%d published in this run)",
+            len(rows_by_id),
+            len(exercises),
+        )

@@ -1,0 +1,79 @@
+{
+  "$schema": "./learningPath.schema.json",
+  "name": "All C exercises",
+  "series": [
+    {
+      "name": "Basics",
+      "pointsToComplete": 3,
+      "exercises": [
+        "ex_0001_PrintHelloWorld",
+        "ex_0002_PrintMathCalc",
+        "ex_0003_SomeCalculus"
+      ]
+    },
+    {
+      "name": "Variables and types",
+      "pointsToComplete": 4,
+      "exercises": [
+        "ex_0004_Swap",
+        "ex_0005_CelsiusToFahrenheit",
+        "ex_0006_AssetInterestRate"
+      ]
+    },
+    {
+      "name": "Formatted I/O",
+      "pointsToComplete": 4,
+      "exercises": [
+        "ex_0007_Printf",
+        "ex_0008_ScanfPrintf",
+        "ex_0009_Circle"
+      ]
+    },
+    {
+      "name": "Conditions",
+      "pointsToComplete": 13,
+      "exercises": [
+        "ex_0010_LowercaseUppercase",
+        "ex_0011_MultiplicationSign",
+        "ex_0012_DecreasingOutput",
+        "ex_0013_SecondOrderEquation",
+        "ex_0014_CurrencyConverter",
+        "ex_0015_DaysInMonth",
+        "ex_0020_Calculator"
+      ]
+    },
+    {
+      "name": "Loops",
+      "pointsToComplete": 11,
+      "exercises": [
+        "ex_0016_SumProductMean",
+        "ex_0017_Factorial",
+        "ex_0018_Squares",
+        "ex_0019_MultiplicationTable",
+        "ex_0021_SumN",
+        "ex_0022_Invert"
+      ]
+    },
+    {
+      "name": "Arrays",
+      "pointsToComplete": 10,
+      "exercises": [
+        "ex_0023_CompareArray",
+        "ex_0024_PrintArray",
+        "ex_0025_FillArray",
+        "ex_0026_ArraySum",
+        "ex_0027_Array2DSum",
+        "ex_0028_DotProduct"
+      ]
+    },
+    {
+      "name": "Structs",
+      "pointsToComplete": 9,
+      "exercises": [
+        "ex_0029_Time",
+        "ex_0030_Complex",
+        "ex_0031_Person"
+      ]
+    }
+  ]
+}

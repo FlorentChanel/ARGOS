@@ -1,0 +1,66 @@
+name: Check exercises
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'Exercises/**'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install build tools
+        run: sudo apt-get install -y cmake ninja-build gcc g++
+
+      - name: Run argos check
+        id: argos
+        run: python argos.py check
+        continue-on-error: true
+
+      - name: Write step summary
+        if: always()
+        run: |
+          python - <<'EOF'
+          import json, os, re, sys
+          from pathlib import Path
+
+          data_path = Path(".argos/dashboards/student/data.js")
+          if not data_path.exists():
+              Path(os.environ["GITHUB_STEP_SUMMARY"]).write_text(
+                  "❌ Dashboard data not generated — argos check failed before producing results."
+              )
+              sys.exit(1)
+
+          json_str = re.sub(r'^\s*window\.ARGOS_DATA\s*=\s*', '', data_path.read_text()).rstrip().rstrip(';')
+          data = json.loads(json_str)
+
+          lines = []
+          success = True
+          for lp in data.get("learningPaths", []):
+              prog = lp["progression"]
+              pct = prog["completed"] / prog["total"] * 100 if prog["total"] else 0
+              lines.append(f"## {lp['name']}")
+              lines.append(f"**Progress:** {prog['completed']} / {prog['total']} ({pct:.1f}%)\n")
+              lines.append("| # | Exercise | Result | Points |")
+              lines.append("|---|----------|--------|--------|")
+              for serie in lp.get("series", []):
+                  for ex in serie.get("exercises", []):
+                      icon = "✅" if ex["passed"] else ("❌" if ex["total_tests"] is not None else "⚙️")
+                      if not ex["passed"]:
+                        success = False
+                      pts = f"{ex['points_earned']} / {ex['points_available']}"
+                      lines.append(f"| {ex['exercise_id']} | {ex['exercise_name']} | {icon} | {pts} |")
+              lines.append("")
+
+          Path(os.environ["GITHUB_STEP_SUMMARY"]).write_text("\n".join(lines))
+          if not success:
+            sys.exit(1)
+          EOF

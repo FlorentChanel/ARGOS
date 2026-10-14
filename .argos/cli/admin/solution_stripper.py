@@ -1,15 +1,14 @@
-from io import TextIOWrapper
+from collections.abc import Iterator
 from logging import getLogger
 from pathlib import Path
 from typing import ClassVar
 
 from utils.constants import (
     BANK_EXERCISES_PATH,
-    POSSIBLE_EXERCISE_EXTENSIONS,
     SECTION_BEGIN_TEMPLATE,
     SECTION_END_TEMPLATE,
     SOLUTION_SECTION_NAME,
-    TODO_SECTION_NAME,
+    TEXT_EXTENSIONS,
 )
 
 logger = getLogger(__name__)
@@ -22,31 +21,32 @@ class SolutionStripper:
     _section_end: ClassVar[str] = SECTION_END_TEMPLATE.format(
         name=SOLUTION_SECTION_NAME
     )
-    _todo_begin: ClassVar[str] = SECTION_BEGIN_TEMPLATE.format(name=TODO_SECTION_NAME)
-    _todo_end: ClassVar[str] = SECTION_END_TEMPLATE.format(name=TODO_SECTION_NAME)
 
     def strip_solutions(self, exercise_fullnames: list[str]) -> None:
         for exercise_id in exercise_fullnames:
             self._strip_exercise_solutions(exercise_id)
 
     def detect_solutions(self, exercise_fullnames: list[str]) -> list[Path]:
-        """Returns paths of exercise files that still contain solution blocks."""
+        """Returns paths of exercise files that still contain solution blocks.
+
+        Every text file of the exercise folder is inspected: a solution can
+        live in the header (regime B), the sandbox main or a README, not only
+        in the main source file.
+        """
         found: list[Path] = []
         for fullname in exercise_fullnames:
-            path = self._find_exercise_file(fullname)
-            if path is not None and self._has_solution(path):
-                found.append(path)
+            for path in self._iter_exercise_text_files(fullname):
+                if self._has_solution(path):
+                    found.append(path)
         return found
 
-    def _find_exercise_file(self, exercise_fullname: str) -> Path | None:
+    def _iter_exercise_text_files(self, exercise_fullname: str) -> Iterator[Path]:
         folder_path = Path(BANK_EXERCISES_PATH) / exercise_fullname
         if not folder_path.exists():
-            return None
-        for extension in POSSIBLE_EXERCISE_EXTENSIONS:
-            candidate = (folder_path / exercise_fullname).with_suffix(extension)
-            if candidate.exists():
-                return candidate
-        return None
+            return
+        for path in sorted(folder_path.iterdir()):
+            if path.is_file() and path.suffix in TEXT_EXTENSIONS:
+                yield path
 
     def _has_solution(self, file_path: Path) -> bool:
         with open(file_path, encoding="utf-8") as f:
@@ -56,23 +56,25 @@ class SolutionStripper:
         return False
 
     def _strip_exercise_solutions(self, exercise_fullname: str) -> None:
-        file_path = self._find_exercise_file(exercise_fullname)
+        files = list(self._iter_exercise_text_files(exercise_fullname))
 
-        if file_path is None:
+        if not files:
             raise ValueError(
                 f"Exercise file {exercise_fullname} not found in the bank."
             )
 
-        with open(file_path, "r") as f:
-            content = self._get_content_without_solution(f)
+        for file_path in files:
+            with open(file_path, "r", encoding="utf-8", newline="") as f:
+                content = f.read()
 
-        with open(file_path, "w") as f:
-            f.write(content)
+            stripped = self.strip_string(content)
+            if stripped == content:
+                continue
 
-        logger.info("Stripped solution from '%s'", exercise_fullname)
+            with open(file_path, "w", encoding="utf-8", newline="") as f:
+                f.write(stripped)
 
-    def _get_content_without_solution(self, file: TextIOWrapper) -> str:
-        return self.strip_string("".join(file))
+            logger.info("Stripped solution from '%s'", file_path)
 
     def strip_string(self, content: str) -> str:
         """Removes every solution block (markers included) from the given text."""

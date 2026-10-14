@@ -1,4 +1,3 @@
-import webbrowser
 from argparse import ArgumentParser
 from logging import getLogger
 from pathlib import Path
@@ -81,12 +80,10 @@ class CheckCommand(Command):
         summary = self._score_calculator.compute(report, scope)
         print(summary.to_str())
 
-        self._dashboard_generator.generate(summary, Path(DASHBOARD_DATA_FILE_PATH))
+        self._dashboard_generator.generate(
+            summary, Path(DASHBOARD_DATA_FILE_PATH), self._context.learning_paths
+        )
         print("\n")
-        Output.path("Dashboard", Path(DASHBOARD_INDEX_FILE_PATH))
-        if self._argos_config.auto_open_browser:
-            print("Opening dashboard in browser...")
-            Output.hint("You can disable this behavior in .argos_config.json")
-            webbrowser.open(Path(DASHBOARD_INDEX_FILE_PATH).absolute().as_uri())
+        Output.path("Dashboard (ctrl+click to open)", Path(DASHBOARD_INDEX_FILE_PATH))
 
         return 0 if report.overall_success else 1

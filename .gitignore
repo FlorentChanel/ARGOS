@@ -3,3 +3,6 @@ BUILD/
 Exercises/**/*.exe
 # Per-user state (learning path selection), bootstrapped by the CLI
 .argos-config.json
+
+# Exercise factory (prof-only tooling and per-exercise state): never committed, never published
+.factory/
