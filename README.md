@@ -44,9 +44,24 @@ and shows your progress on a dashboard.
 1. Pick an exercise from the catalogue below and read its statement (the
    `README.fr.md` / `README.en.md` files linked in the table).
 2. Edit the exercise source in `Exercises/ex_NNNN_Name/` — each exercise
-   tells you which function to complete. The `main.c` next to it is a free
-   sandbox: use it to experiment by hand.
-3. Check your solution:
+   tells you which function to write. The `main.c` next to it is a free
+   sandbox: use it to call your function and test it by hand.
+3. Compile by hand, from the exercise folder, with the course command:
+
+   ```powershell
+   cd Exercises/ex_NNNN_Name
+   gcc -Wall -Wextra -Wpedantic -Werror -std=c23 -o main.exe main.c ex_NNNN_Name.c
+   ```
+
+   Fix every error and warning until it compiles, then run your program:
+
+   ```powershell
+   .\main.exe
+   ```
+
+   Try several inputs and compare with what the statement expects.
+4. Only once your code compiles and you have tested it, check your solution
+   from the project root:
 
    ```powershell
    .\argos.exe check <exercise-id>
