@@ -7,13 +7,12 @@
 **Difficulty:** 🟢 easy
 
 **Tested skills:**
-- basics
 - arithmetic operators
 
 ## Task
 
 Complete **`ex_0002_PrintMathCalc`** so that it computes the product of 37
-and 12 and prints the result in the format below.
+and 12 and prints the result in the format below, followed by a newline.
 
 ## Signature
 
@@ -30,4 +29,4 @@ The result of 37 * 12 = 444
 ## Constraints
 
 - Store the two operands in **`int`** variables and print the computed
-  product — do not hardcode `444` in the output.
+  product — do not hardcode **`444`** in the output.

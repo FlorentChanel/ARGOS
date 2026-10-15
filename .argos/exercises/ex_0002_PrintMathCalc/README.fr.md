@@ -7,13 +7,13 @@
 **Difficulté :** 🟢 facile
 
 **Compétences testées :**
-- premiers pas
 - opérateurs arithmétiques
 
 ## Tâche
 
 Complétez **`ex_0002_PrintMathCalc`** pour qu'elle calcule le produit de 37
-et 12 et affiche le résultat dans le format ci-dessous.
+et 12 et affiche le résultat dans le format ci-dessous, suivi d'un retour à la
+ligne.
 
 ## Signature
 
@@ -30,4 +30,4 @@ The result of 37 * 12 = 444
 ## Contraintes
 
 - Stockez les deux opérandes dans des variables **`int`** et affichez le
-  produit calculé — n'écrivez pas `444` en dur dans la sortie.
+  produit calculé — n'écrivez pas **`444`** en dur dans la sortie.
