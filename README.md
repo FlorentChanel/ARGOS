@@ -73,3 +73,8 @@ triggers it automatically).
 | 0005 | [Celsius to Fahrenheit](.argos/exercises/ex_0005_CelsiusToFahrenheit/README.en.md) · [fr](.argos/exercises/ex_0005_CelsiusToFahrenheit/README.fr.md) | basics, arithmetic operators, formatted input/output | 🟢 easy |
 | 0006 | [Asset Interest Rate](.argos/exercises/ex_0006_AssetInterestRate/README.en.md) · [fr](.argos/exercises/ex_0006_AssetInterestRate/README.fr.md) | basics, arithmetic operators, variables and types, formatted input/output | 🟡 medium |
 <!-- CATALOGUE:END -->
+
+## License
+
+ARGOS — the CLI, tests, exercise statements and skeletons — is released under
+the [MIT License](LICENSE).
