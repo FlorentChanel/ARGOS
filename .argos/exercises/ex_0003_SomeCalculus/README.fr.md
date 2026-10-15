@@ -7,7 +7,6 @@
 **Difficulté :** 🟢 facile
 
 **Compétences testées :**
-- premiers pas
 - opérateurs arithmétiques
 - variables et types
 
@@ -47,10 +46,17 @@ Pour **`a = 4`** et **`b = 7`**, la fonction affiche :
  e) The rounded down value of A/B with 3 decimals is 0.571000 
 ```
 
+La sortie commence par une ligne vide (avant la partie a)) et se termine par une
+ligne vide (après la partie e)).
+
 ## Contraintes
 
+- Les entrées sont toujours valides : **`b`** est non nul, $a^b$ est défini
+  (**`a`** n'est pas négatif lorsque **`b`** n'est pas un entier), et **`a`** n'est
+  pas un multiple impair de 90 degrés.
 - Utilisez les fonctions de la bibliothèque mathématique standard (**`math.h`**
   est déjà inclus) : **`pow`**, **`sqrt`**, **`sin`**, **`cos`**, **`floor`**.
+- Calculez la tangente en n'utilisant que **`sin`** et **`cos`**.
 - Ne modifiez ni les appels **`printf`** fournis, ni la signature de la fonction.
 
 > [!WARNING]

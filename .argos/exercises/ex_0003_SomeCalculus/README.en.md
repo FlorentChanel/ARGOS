@@ -7,7 +7,6 @@
 **Difficulty:** 🟢 easy
 
 **Tested skills:**
-- basics
 - arithmetic operators
 - variables and types
 
@@ -47,10 +46,17 @@ For **`a = 4`** and **`b = 7`**, the function prints:
  e) The rounded down value of A/B with 3 decimals is 0.571000 
 ```
 
+The output starts with an empty line (before part a)) and ends with an empty line
+(after part e)).
+
 ## Constraints
 
+- The inputs are always valid: **`b`** is non-zero, $a^b$ is defined (**`a`** is
+  not negative when **`b`** is not an integer), and **`a`** is not an odd multiple
+  of 90 degrees.
 - Use the functions of the standard math library (**`math.h`** is already
   included): **`pow`**, **`sqrt`**, **`sin`**, **`cos`**, **`floor`**.
+- Compute the tangent using only **`sin`** and **`cos`**.
 - Do not modify the provided **`printf`** calls or the function signature.
 
 > [!WARNING]
