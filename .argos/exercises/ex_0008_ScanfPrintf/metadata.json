@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Scanf Printf",
+  "description": "Write a function that reads three letters with scanf and prints their ASCII codes.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "formatted_io"
+  ]
+}

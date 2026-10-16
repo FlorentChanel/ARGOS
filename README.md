@@ -93,6 +93,47 @@ When your teacher updates the exercises, pull the changes from this
 repository into your fork, then run `.\argos.exe sync` (a `git pull` also
 triggers it automatically).
 
+## Reading from stdin
+
+When a statement asks you to flush `stdin` after a `scanf`, read and discard
+every character left on the line, up to and including the newline `\n`, or
+until `EOF` if the input ends first. Combined with input error handling (ask
+again until the expected values are read), it looks like this:
+
+```c
+int status = 0;
+const int nbExpectedValues = 1;
+int x = 0;
+do
+{
+  printf("Please enter an integer: ");
+  status = scanf("%d", &x);
+
+  {
+    int c;
+    do
+    {
+      c = getchar();
+    } while (c != '\n' && c != EOF);
+  }
+} while (status != nbExpectedValues && status != EOF);
+```
+
+- `c` must be an `int`, not a `char`: otherwise the comparison with `EOF` may
+  never be true.
+- `status != EOF` covers a rare case: the input is over, not just empty. On
+  an empty keyboard input, `scanf` waits for the user. But once the input has
+  ended (the user typed Ctrl+Z then Enter on Windows, Ctrl+D on Linux/macOS,
+  or the input comes from a file that has been read to the end, as in the
+  tests), `scanf` returns `EOF` at once, every time. Without this check, the
+  loop would print the prompt forever. When the loop stops on `EOF`, `x` was
+  not read.
+- Do not use `fflush(stdin)`: `fflush` is defined for output streams only, its
+  behaviour on `stdin` depends on the platform.
+
+Without this flush, what `scanf` left behind (the `\n`, or a token it could not
+convert) is read again by the next read: the tests then fail, or never end.
+
 ## Dashboard
 
 Every `check` updates your dashboard, a local web page showing your total
@@ -119,6 +160,7 @@ Keep it open while you work: it refreshes by itself after each `check`.
 | 0005 | [Celsius to Fahrenheit](.argos/exercises/ex_0005_CelsiusToFahrenheit/README.en.md) · [fr](.argos/exercises/ex_0005_CelsiusToFahrenheit/README.fr.md) | arithmetic operators | 🟢 easy |
 | 0006 | [Asset Interest Rate](.argos/exercises/ex_0006_AssetInterestRate/README.en.md) · [fr](.argos/exercises/ex_0006_AssetInterestRate/README.fr.md) | arithmetic operators, variables and types | 🟡 medium |
 | 0007 | [Printf](.argos/exercises/ex_0007_Printf/README.en.md) · [fr](.argos/exercises/ex_0007_Printf/README.fr.md) | formatted input/output | 🟢 easy |
+| 0008 | [Scanf Printf](.argos/exercises/ex_0008_ScanfPrintf/README.en.md) · [fr](.argos/exercises/ex_0008_ScanfPrintf/README.fr.md) | formatted input/output | 🟢 easy |
 <!-- CATALOGUE:END -->
 
 ## License
