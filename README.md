@@ -118,6 +118,7 @@ Keep it open while you work: it refreshes by itself after each `check`.
 | 0004 | [Swap](.argos/exercises/ex_0004_Swap/README.en.md) · [fr](.argos/exercises/ex_0004_Swap/README.fr.md) | variables and types | 🟢 easy |
 | 0005 | [Celsius to Fahrenheit](.argos/exercises/ex_0005_CelsiusToFahrenheit/README.en.md) · [fr](.argos/exercises/ex_0005_CelsiusToFahrenheit/README.fr.md) | arithmetic operators | 🟢 easy |
 | 0006 | [Asset Interest Rate](.argos/exercises/ex_0006_AssetInterestRate/README.en.md) · [fr](.argos/exercises/ex_0006_AssetInterestRate/README.fr.md) | arithmetic operators, variables and types | 🟡 medium |
+| 0007 | [Printf](.argos/exercises/ex_0007_Printf/README.en.md) · [fr](.argos/exercises/ex_0007_Printf/README.fr.md) | formatted input/output | 🟢 easy |
 <!-- CATALOGUE:END -->
 
 ## License

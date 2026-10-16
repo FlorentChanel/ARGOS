@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Printf",
+  "description": "Write a function that prints a fixed text block with printf, using escape sequences for blank lines, backslashes and double quotes.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "formatted_io"
+  ]
+}
