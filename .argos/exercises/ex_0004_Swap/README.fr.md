@@ -7,9 +7,7 @@
 **Difficulté :** 🟢 facile
 
 **Compétences testées :**
-- premiers pas
 - variables et types
-- entrées-sorties formatées
 
 ## Tâche
 

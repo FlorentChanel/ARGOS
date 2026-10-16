@@ -5,8 +5,6 @@
   "difficulty": "easy",
   "language": "c",
   "skills": [
-    "basics",
-    "variables_and_types",
-    "formatted_io"
+    "variables_and_types"
   ]
 }

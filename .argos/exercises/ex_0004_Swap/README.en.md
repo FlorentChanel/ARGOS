@@ -7,9 +7,7 @@
 **Difficulty:** 🟢 easy
 
 **Tested skills:**
-- basics
 - variables and types
-- formatted input/output
 
 ## Task
 
