@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Lowercase Uppercase",
+  "description": "Write a function that reads a character and tells whether it is a lowercase letter, an uppercase letter or not a letter.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "conditionals"
+  ]
+}
