@@ -5,9 +5,7 @@
   "difficulty": "medium",
   "language": "c",
   "skills": [
-    "basics",
     "arithmetic_operators",
-    "variables_and_types",
-    "formatted_io"
+    "variables_and_types"
   ]
 }

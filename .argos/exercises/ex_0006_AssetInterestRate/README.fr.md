@@ -7,29 +7,27 @@
 **Difficulté :** 🟡 moyen
 
 **Compétences testées :**
-- premiers pas
 - opérateurs arithmétiques
 - variables et types
-- entrées-sorties formatées
 
 ## Tâche
 
 Complétez **`ex_0006_AssetInterestRate`** pour qu'elle calcule la valeur
 finale d'un capital initial **`initAssets`**, après application d'un taux
 d'intérêt composé annuel **`interestRate`** (en pourcent) pendant
-**`duration`** années, et la retourne :
+**`years`** années, et la retourne :
 
-$$\text{finalAssets} = \text{initAssets} \times \left(1 + \frac{\text{interestRate}}{100}\right)^{\text{duration}}$$
+$$\text{finalAssets} = \text{initAssets} \times \left(1 + \frac{\text{interestRate}}{100}\right)^{\text{years}}$$
 
 ## Signature
 
 ```c
-double ex_0006_AssetInterestRate(double initAssets, double interestRate, double duration);
+double ex_0006_AssetInterestRate(double initAssets, double interestRate, int years);
 ```
 
 ## Exemples
 
-| **`initAssets`** | **`interestRate`** | **`duration`** | valeur retournée |
+| **`initAssets`** | **`interestRate`** | **`years`**    | valeur retournée |
 |------------------|--------------------|----------------|------------------|
 | 1000             | 2.5                | 30             | ≈ 2097.57        |
 | 1000             | 2.5                | 0              | 1000             |
@@ -40,3 +38,5 @@ double ex_0006_AssetInterestRate(double initAssets, double interestRate, double 
 
 - Utilisez **`pow`** de la bibliothèque mathématique standard (**`math.h`**
   est déjà inclus).
+- Les entrées sont toujours valides : **`years`** est positif ou nul et
+  **`interestRate`** est strictement supérieur à -100.

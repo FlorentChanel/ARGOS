@@ -5,15 +5,32 @@ from pathlib import Path
 from config import Context
 from config.argos_config import ArgosConfig
 from dashboard_generator import DashboardGenerator
-from pipeline import ProcessPipeline
+from pipeline import PipelineProgress, ProcessPipeline, StepName
 from scoring import ScoreCalculator
 from utils.constants import DASHBOARD_DATA_FILE_PATH, DASHBOARD_INDEX_FILE_PATH
 from utils.output import Output
-from utils.spinner import Spinner
+from utils.progress_bar import ProgressBar
 
 from .command import Command
 
 logger = getLogger(__name__)
+
+_STEP_LABELS = {
+    StepName.CMAKE: "configuring build",
+    StepName.NINJA: "compiling",
+    StepName.UNIT_TESTS: "running tests",
+}
+
+
+def _progress_detail(progress: PipelineProgress) -> str:
+    counts = f"✔ {progress.passed}  ✘ {progress.failed}"
+    if progress.current_step == StepName.CMAKE:
+        return f"{_STEP_LABELS[StepName.CMAKE]}  {counts}"
+    position = f"{progress.exercise_index}/{progress.exercise_count}"
+    if progress.current_exercise is None or progress.current_step is None:
+        return f"{position}  {counts}"
+    step = _STEP_LABELS[progress.current_step]
+    return f"{position}  {progress.current_exercise} · {step}  {counts}"
 
 
 class CheckCommand(Command):
@@ -74,8 +91,15 @@ class CheckCommand(Command):
             Output.success("No exercises to check in the selected scope.")
             return 0
 
-        with Spinner("Running checks..."):
-            report = self._pipeline.run(scope)
+        with ProgressBar("starting...") as progress_bar:
+            report = self._pipeline.run(
+                scope,
+                on_progress=lambda progress: progress_bar.update(
+                    progress.completed_steps,
+                    progress.total_steps,
+                    _progress_detail(progress),
+                ),
+            )
 
         summary = self._score_calculator.compute(report, scope)
         print(summary.to_str())

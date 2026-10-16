@@ -7,7 +7,7 @@
 #include "ex_0006_AssetInterestRate.h"
 
 // Function definitions
-double ex_0006_AssetInterestRate(double initAssets, double interestRate, double duration)
+double ex_0006_AssetInterestRate(double initAssets, double interestRate, int years)
 {
   double finalAssets = 0.0;
 

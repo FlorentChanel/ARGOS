@@ -42,6 +42,18 @@ class StepResult(Generic[PayloadT]):
 
 
 @dataclass(frozen=True)
+class PipelineProgress:
+    completed_steps: int
+    total_steps: int
+    exercise_index: int
+    exercise_count: int
+    passed: int
+    failed: int
+    current_exercise: str | None
+    current_step: StepName | None
+
+
+@dataclass(frozen=True)
 class ExerciseStepResults:
     ninja: StepResult[NinjaPayload]
     unit_tests: StepResult[UnitTestsPayload]

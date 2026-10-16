@@ -264,6 +264,23 @@ bool Utils::unitTestResultWrapper(double (*func)(double, double, double), double
   return expected_result == actual_result; // Just in case
 }
 
+bool Utils::unitTestResultWrapper(double (*func)(double, double, int), double arg1, double arg2, int arg3, const std::string &func_name, double expected_result)
+{
+  auto actual_result = func(arg1, arg2, arg3);
+
+  auto msg = std::string();
+  {
+    auto oss = std::ostringstream();
+    oss << func_name << "(" << arg1 << ", " << arg2 << ", " << arg3 << ") should return " << expected_result;
+    msg = oss.str();
+  }
+
+  double epsilon = 0.0000001;
+  EXPECT_NEAR(expected_result, actual_result, epsilon) << formatError(msg);
+
+  return expected_result == actual_result; // Just in case
+}
+
 bool Utils::unitTestResultWrapper(double (*func)(double, double, char), double arg1, double arg2, char arg3, const std::string &func_name, double expected_result)
 {
   auto actual_result = func(arg1, arg2, arg3);

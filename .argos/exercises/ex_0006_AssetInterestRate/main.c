@@ -10,7 +10,7 @@ int main(void)
 {
   double initAssets = 0.0;
   double interestRate = 0.0;
-  double duration = 0.0;
+  int years = 0;
   double finalAssets = 0.0;
 
   printf("What is your initial asset? ");
@@ -20,11 +20,11 @@ int main(void)
   scanf("%lf", &interestRate);
 
   printf("Duration in years? ");
-  scanf("%lf", &duration);
+  scanf("%d", &years);
 
-  finalAssets = ex_0006_AssetInterestRate(initAssets, interestRate, duration);
+  finalAssets = ex_0006_AssetInterestRate(initAssets, interestRate, years);
 
-  printf("\nAfter %.0f years, your assets (with interest) will be %10.2f SFr\n\n", duration, finalAssets);
+  printf("\nAfter %d years, your assets (with interest) will be %10.2f SFr\n\n", years, finalAssets);
 
   return 0;
 }

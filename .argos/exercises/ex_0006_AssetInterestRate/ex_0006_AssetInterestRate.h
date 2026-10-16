@@ -8,6 +8,6 @@
 // Local includes
 
 // Function prototypes
-double ex_0006_AssetInterestRate(double initAssets, double interestRate, double duration);
+double ex_0006_AssetInterestRate(double initAssets, double interestRate, int years);
 
 #endif // EX_0006_ASSETINTERESTRATE_H

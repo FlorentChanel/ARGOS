@@ -6,7 +6,7 @@ from pathlib import Path
 LOG_LEVEL = DEBUG
 
 CLI_NAME = "argos"
-CLI_VERSION = "0.5.1"
+CLI_VERSION = "0.5.3"
 CLI_VERSION_STRING = f"{CLI_NAME} version {CLI_VERSION}"
 
 GTEST_OUTPUT_ENV_VAR = "GTEST_OUTPUT"

@@ -7,29 +7,27 @@
 **Difficulty:** 🟡 medium
 
 **Tested skills:**
-- basics
 - arithmetic operators
 - variables and types
-- formatted input/output
 
 ## Task
 
 Complete **`ex_0006_AssetInterestRate`** so that it computes the final value
 of an asset with initial value **`initAssets`**, after applying a yearly
 compound interest rate of **`interestRate`** (in percent) for
-**`duration`** years, and returns it:
+**`years`** years, and returns it:
 
-$$\text{finalAssets} = \text{initAssets} \times \left(1 + \frac{\text{interestRate}}{100}\right)^{\text{duration}}$$
+$$\text{finalAssets} = \text{initAssets} \times \left(1 + \frac{\text{interestRate}}{100}\right)^{\text{years}}$$
 
 ## Signature
 
 ```c
-double ex_0006_AssetInterestRate(double initAssets, double interestRate, double duration);
+double ex_0006_AssetInterestRate(double initAssets, double interestRate, int years);
 ```
 
 ## Examples
 
-| **`initAssets`** | **`interestRate`** | **`duration`** | returned value |
+| **`initAssets`** | **`interestRate`** | **`years`**    | returned value |
 |------------------|--------------------|----------------|----------------|
 | 1000             | 2.5                | 30             | ≈ 2097.57      |
 | 1000             | 2.5                | 0              | 1000           |
@@ -40,3 +38,5 @@ double ex_0006_AssetInterestRate(double initAssets, double interestRate, double 
 
 - Use **`pow`** from the standard math library (**`math.h`** is already
   included).
+- The inputs are always valid: **`years`** is non-negative and
+  **`interestRate`** is greater than -100.

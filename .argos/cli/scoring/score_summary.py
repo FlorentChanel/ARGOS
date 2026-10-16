@@ -168,8 +168,11 @@ class ScoreSummary:
         lines: list[str] = ["📊 Score Summary", sep]
 
         for lp in self.learning_paths:
+            checked_series = [serie for serie in lp.series if serie.exercises]
+            if not checked_series:
+                continue
             lines.append(lp.name)
-            for serie in lp.series:
+            for serie in checked_series:
                 icon = "✅" if serie.completed else "❌"
                 status = "completed" if serie.completed else "not completed"
                 lines.append(
