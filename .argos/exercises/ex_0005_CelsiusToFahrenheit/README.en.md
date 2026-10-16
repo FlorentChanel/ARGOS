@@ -7,9 +7,7 @@
 **Difficulty:** 🟢 easy
 
 **Tested skills:**
-- basics
 - arithmetic operators
-- formatted input/output
 
 ## Task
 
@@ -31,3 +29,8 @@ double ex_0005_CelsiusToFahrenheit(double temperatureC);
 | 100                | 212            |
 | -40                | -40            |
 | 37.5               | 99.5           |
+
+## Constraints
+
+- Any real temperature is valid, including negative ones.
+- Use **`double`** for the computation.

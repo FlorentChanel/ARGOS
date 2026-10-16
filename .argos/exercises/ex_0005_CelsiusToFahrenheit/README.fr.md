@@ -7,9 +7,7 @@
 **Difficulté :** 🟢 facile
 
 **Compétences testées :**
-- premiers pas
 - opérateurs arithmétiques
-- entrées-sorties formatées
 
 ## Tâche
 
@@ -31,3 +29,8 @@ double ex_0005_CelsiusToFahrenheit(double temperatureC);
 | 100                | 212              |
 | -40                | -40              |
 | 37.5               | 99.5             |
+
+## Contraintes
+
+- Toute température réelle est valide, y compris négative.
+- Utilisez **`double`** pour le calcul.
