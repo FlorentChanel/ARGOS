@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Circle",
+  "description": "Write a function that reads a circle radius and prints pi and the circle surface with 2 decimals.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "formatted_io"
+  ]
+}
