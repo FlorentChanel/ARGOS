@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Multiplication Sign",
+  "description": "Write a function that reads two integers and prints the sign of their product without computing the multiplication.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "conditionals"
+  ]
+}

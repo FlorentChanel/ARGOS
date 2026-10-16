@@ -163,6 +163,7 @@ Keep it open while you work: it refreshes by itself after each `check`.
 | 0008 | [Scanf Printf](.argos/exercises/ex_0008_ScanfPrintf/README.en.md) · [fr](.argos/exercises/ex_0008_ScanfPrintf/README.fr.md) | formatted input/output | 🟢 easy |
 | 0009 | [Circle](.argos/exercises/ex_0009_Circle/README.en.md) · [fr](.argos/exercises/ex_0009_Circle/README.fr.md) | formatted input/output | 🟡 medium |
 | 0010 | [Lowercase Uppercase](.argos/exercises/ex_0010_LowercaseUppercase/README.en.md) · [fr](.argos/exercises/ex_0010_LowercaseUppercase/README.fr.md) | conditionals (if / switch) | 🟡 medium |
+| 0011 | [Multiplication Sign](.argos/exercises/ex_0011_MultiplicationSign/README.en.md) · [fr](.argos/exercises/ex_0011_MultiplicationSign/README.fr.md) | conditionals (if / switch) | 🟡 medium |
 <!-- CATALOGUE:END -->
 
 ## License
