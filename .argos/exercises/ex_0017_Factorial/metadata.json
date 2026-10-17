@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Factorial",
+  "description": "Write a function that reads a non-negative integer N and prints N! computed with a loop.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "for_loop"
+  ]
+}
