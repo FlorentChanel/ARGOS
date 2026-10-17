@@ -1,0 +1,11 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Array 2D Sum",
+  "description": "Write a function that reads a 2D array's sizes and values, then prints the sum of all its elements.",
+  "difficulty": "hard",
+  "language": "c",
+  "skills": [
+    "arrays_2d",
+    "formatted_io"
+  ]
+}
