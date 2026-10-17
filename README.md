@@ -166,6 +166,7 @@ Keep it open while you work: it refreshes by itself after each `check`.
 | 0011 | [Multiplication Sign](.argos/exercises/ex_0011_MultiplicationSign/README.en.md) · [fr](.argos/exercises/ex_0011_MultiplicationSign/README.fr.md) | conditionals (if / switch) | 🟡 medium |
 | 0012 | [Decreasing Output](.argos/exercises/ex_0012_DecreasingOutput/README.en.md) · [fr](.argos/exercises/ex_0012_DecreasingOutput/README.fr.md) | conditionals (if / switch) | 🟢 easy |
 | 0013 | [Second Order Equation](.argos/exercises/ex_0013_SecondOrderEquation/README.en.md) · [fr](.argos/exercises/ex_0013_SecondOrderEquation/README.fr.md) | conditionals (if / switch) | 🟡 medium |
+| 0014 | [Currency Converter](.argos/exercises/ex_0014_CurrencyConverter/README.en.md) · [fr](.argos/exercises/ex_0014_CurrencyConverter/README.fr.md) | conditionals (if / switch) | 🟡 medium |
 | 0018 | [Squares](.argos/exercises/ex_0018_Squares/README.en.md) · [fr](.argos/exercises/ex_0018_Squares/README.fr.md) | for loop, functions (pass by value) | 🟢 easy |
 <!-- CATALOGUE:END -->
 

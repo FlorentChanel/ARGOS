@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Currency Converter",
+  "description": "Write a function that converts an amount in won, dollars, yen or pounds to Swiss francs, validating the input.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "conditionals"
+  ]
+}
