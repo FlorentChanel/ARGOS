@@ -1,0 +1,11 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Sum Product Mean",
+  "description": "Write a function that reads N integers and prints their sum, product and mean.",
+  "difficulty": "hard",
+  "language": "c",
+  "skills": [
+    "for_loop",
+    "formatted_io"
+  ]
+}
