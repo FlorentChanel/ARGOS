@@ -1,0 +1,11 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Fill Array",
+  "description": "Write a function that fills an integer array from keyboard input, stopping on a negative value.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "arrays_1d",
+    "formatted_io"
+  ]
+}
