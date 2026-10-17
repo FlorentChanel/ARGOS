@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Decreasing Output",
+  "description": "Write a function that reads three integers and prints them in decreasing order by swapping variables.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "conditionals"
+  ]
+}
