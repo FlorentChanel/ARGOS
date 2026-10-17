@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Print Array",
+  "description": "Write a function that prints an integer array, elements separated by spaces without a trailing one.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "arrays_1d"
+  ]
+}
