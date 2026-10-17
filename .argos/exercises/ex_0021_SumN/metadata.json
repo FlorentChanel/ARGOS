@@ -1,0 +1,11 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Sum N",
+  "description": "Write a function that returns the sum of the integers between two integers, bounds included.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "for_loop",
+    "functions_by_value"
+  ]
+}
