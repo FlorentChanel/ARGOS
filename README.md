@@ -4,6 +4,27 @@ ARGOS is a bank of C programming exercises with automated tests. You work on
 the exercises locally, and the `argos` CLI compiles your code, runs the tests
 and shows your progress on a dashboard.
 
+## Prerequisites
+
+`gcc` (with `g++`) is already installed on your machine. To check your
+exercises, the `argos` CLI also needs:
+
+- **CMake** ≥ 3.25 — <https://cmake.org/download/>
+- **Ninja** — <https://github.com/ninja-build/ninja/releases>
+
+Install both and make sure they are on your `PATH`. Check with:
+
+```powershell
+cmake --version
+ninja --version
+```
+
+The first `check` downloads GoogleTest, so you need an internet connection
+the first time.
+
+Python is optional on Windows: it is only needed to run `argos.py` instead
+of `argos.exe`. On Linux/macOS, you need Python ≥ 3.12.
+
 ## Getting started
 
 1. **Fork this repository** (button at the top of this page) — every student
@@ -174,6 +195,7 @@ Keep it open while you work: it refreshes by itself after each `check`.
 | 0019 | [Multiplication Table](.argos/exercises/ex_0019_MultiplicationTable/README.en.md) · [fr](.argos/exercises/ex_0019_MultiplicationTable/README.fr.md) | for loop, functions (pass by value) | 🟢 easy |
 | 0020 | [Calculator](.argos/exercises/ex_0020_Calculator/README.en.md) · [fr](.argos/exercises/ex_0020_Calculator/README.fr.md) | conditionals (if / switch), functions (pass by value) | 🟡 medium |
 | 0021 | [Sum N](.argos/exercises/ex_0021_SumN/README.en.md) · [fr](.argos/exercises/ex_0021_SumN/README.fr.md) | for loop, functions (pass by value) | 🟢 easy |
+| 0022 | [Invert](.argos/exercises/ex_0022_Invert/README.en.md) · [fr](.argos/exercises/ex_0022_Invert/README.fr.md) | while loop, functions (pass by value) | 🟡 medium |
 <!-- CATALOGUE:END -->
 
 ## License
