@@ -196,6 +196,7 @@ Keep it open while you work: it refreshes by itself after each `check`.
 | 0020 | [Calculator](.argos/exercises/ex_0020_Calculator/README.en.md) · [fr](.argos/exercises/ex_0020_Calculator/README.fr.md) | conditionals (if / switch), functions (pass by value) | 🟡 medium |
 | 0021 | [Sum N](.argos/exercises/ex_0021_SumN/README.en.md) · [fr](.argos/exercises/ex_0021_SumN/README.fr.md) | for loop, functions (pass by value) | 🟢 easy |
 | 0022 | [Invert](.argos/exercises/ex_0022_Invert/README.en.md) · [fr](.argos/exercises/ex_0022_Invert/README.fr.md) | while loop, functions (pass by value) | 🟡 medium |
+| 0023 | [Compare Array](.argos/exercises/ex_0023_CompareArray/README.en.md) · [fr](.argos/exercises/ex_0023_CompareArray/README.fr.md) | 1D arrays | 🟢 easy |
 <!-- CATALOGUE:END -->
 
 ## License

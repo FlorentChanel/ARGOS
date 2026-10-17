@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Compare Array",
+  "description": "Write a function that compares two integer arrays of the same size element by element.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "arrays_1d"
+  ]
+}
