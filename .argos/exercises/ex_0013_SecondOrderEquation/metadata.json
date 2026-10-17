@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Second Order Equation",
+  "description": "Write a function that reads the coefficients of a quadratic equation and prints its real solutions, handling the degenerate cases.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "conditionals"
+  ]
+}
