@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Days In Month",
+  "description": "Write a function that reads a month number and prints the corresponding number of days using a switch.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "conditionals"
+  ]
+}
