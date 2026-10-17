@@ -1,0 +1,11 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Squares",
+  "description": "Write a Square function and a Squares function that prints the squares of the numbers up to n.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "for_loop",
+    "functions_by_value"
+  ]
+}
