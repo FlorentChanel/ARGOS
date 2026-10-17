@@ -199,6 +199,7 @@ Keep it open while you work: it refreshes by itself after each `check`.
 | 0023 | [Compare Array](.argos/exercises/ex_0023_CompareArray/README.en.md) · [fr](.argos/exercises/ex_0023_CompareArray/README.fr.md) | 1D arrays | 🟢 easy |
 | 0024 | [Print Array](.argos/exercises/ex_0024_PrintArray/README.en.md) · [fr](.argos/exercises/ex_0024_PrintArray/README.fr.md) | 1D arrays | 🟢 easy |
 | 0025 | [Fill Array](.argos/exercises/ex_0025_FillArray/README.en.md) · [fr](.argos/exercises/ex_0025_FillArray/README.fr.md) | 1D arrays, formatted input/output | 🟢 easy |
+| 0026 | [Array Sum](.argos/exercises/ex_0026_ArraySum/README.en.md) · [fr](.argos/exercises/ex_0026_ArraySum/README.fr.md) | 1D arrays, for loop | 🟢 easy |
 <!-- CATALOGUE:END -->
 
 ## License

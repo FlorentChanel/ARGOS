@@ -1,0 +1,11 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Array Sum",
+  "description": "Write a function that reads up to 50 values into an array, prints them and prints their sum.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "arrays_1d",
+    "for_loop"
+  ]
+}
