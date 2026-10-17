@@ -172,6 +172,7 @@ Keep it open while you work: it refreshes by itself after each `check`.
 | 0017 | [Factorial](.argos/exercises/ex_0017_Factorial/README.en.md) · [fr](.argos/exercises/ex_0017_Factorial/README.fr.md) | for loop | 🟢 easy |
 | 0018 | [Squares](.argos/exercises/ex_0018_Squares/README.en.md) · [fr](.argos/exercises/ex_0018_Squares/README.fr.md) | for loop, functions (pass by value) | 🟢 easy |
 | 0019 | [Multiplication Table](.argos/exercises/ex_0019_MultiplicationTable/README.en.md) · [fr](.argos/exercises/ex_0019_MultiplicationTable/README.fr.md) | for loop, functions (pass by value) | 🟢 easy |
+| 0020 | [Calculator](.argos/exercises/ex_0020_Calculator/README.en.md) · [fr](.argos/exercises/ex_0020_Calculator/README.fr.md) | conditionals (if / switch), functions (pass by value) | 🟡 medium |
 <!-- CATALOGUE:END -->
 
 ## License

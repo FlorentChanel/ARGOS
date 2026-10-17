@@ -1,0 +1,11 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Calculator",
+  "description": "Write a function that applies +, -, * or / to two doubles, returning zero on division by zero.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "conditionals",
+    "functions_by_value"
+  ]
+}
