@@ -1,0 +1,11 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Multiplication Table",
+  "description": "Write a Read function that inputs a number between two bounds and a function that prints its multiplication table.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "for_loop",
+    "functions_by_value"
+  ]
+}
