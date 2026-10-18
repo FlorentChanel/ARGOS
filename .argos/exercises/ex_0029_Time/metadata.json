@@ -1,0 +1,11 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Time",
+  "description": "Write functions that build and print a Time structure holding hours, minutes and seconds.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "structs",
+    "functions_by_value"
+  ]
+}
