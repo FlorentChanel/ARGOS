@@ -203,6 +203,7 @@ Keep it open while you work: it refreshes by itself after each `check`.
 | 0027 | [Array 2D Sum](.argos/exercises/ex_0027_Array2DSum/README.en.md) · [fr](.argos/exercises/ex_0027_Array2DSum/README.fr.md) | 2D arrays / matrices, formatted input/output | 🔴 hard |
 | 0028 | [Dot Product](.argos/exercises/ex_0028_DotProduct/README.en.md) · [fr](.argos/exercises/ex_0028_DotProduct/README.fr.md) | 1D arrays | 🟢 easy |
 | 0029 | [Time](.argos/exercises/ex_0029_Time/README.en.md) · [fr](.argos/exercises/ex_0029_Time/README.fr.md) | structures (struct), functions (pass by value) | 🟡 medium |
+| 0030 | [Complex](.argos/exercises/ex_0030_Complex/README.en.md) · [fr](.argos/exercises/ex_0030_Complex/README.fr.md) | structures (struct), functions (pass by value) | 🔴 hard |
 | 0031 | [Person](.argos/exercises/ex_0031_Person/README.en.md) · [fr](.argos/exercises/ex_0031_Person/README.fr.md) | arrays of structures, strings | 🟡 medium |
 <!-- CATALOGUE:END -->
 

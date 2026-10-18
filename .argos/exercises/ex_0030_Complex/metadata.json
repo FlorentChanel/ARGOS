@@ -1,0 +1,11 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Complex",
+  "description": "Write functions that read, add, subtract and print complex numbers stored in a Complex structure.",
+  "difficulty": "hard",
+  "language": "c",
+  "skills": [
+    "structs",
+    "functions_by_value"
+  ]
+}
