@@ -24,11 +24,10 @@ TEST(ex_0018, Squares)
   auto func_name = std::string("ex_0018_Squares");
   auto func_to_test = ex_0018_Squares;
 
-  // Better test bounds in a separate loop to avoid checking messy stdout
   auto errors_to_test = {-1, 0, 1001};
   for (auto err : errors_to_test)
   {
-    Utils::unitTestStatusWrapper(func_to_test, err, func_name, err >= 1 && err <= 1000);
+    Utils::unitTestStatusWrapper(func_to_test, err, func_name, false);
     Utils::unitTestOutputWrapper(func_to_test, err, func_name, "");
   }
 
