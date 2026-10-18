@@ -1,0 +1,11 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Person",
+  "description": "Write a function that fills an array of Person structures and prints filtered and alphabetic results.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "arrays_of_structs",
+    "strings"
+  ]
+}
