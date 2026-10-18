@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Dot Product",
+  "description": "Write a function that computes the dot product of two integer vectors given as arrays.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "arrays_1d"
+  ]
+}
