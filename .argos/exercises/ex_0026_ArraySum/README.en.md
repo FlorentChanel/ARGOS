@@ -16,8 +16,8 @@ Implement **`ex_0026_ArraySum`** so that it:
 
 1. declares an array able to hold at most 50 integers
 2. asks the user for the number of values **`n`** to enter (maximum 50)
-3. fills the array with n values entered on the keyboard
-4. prints the first n elements of the array
+3. fills the array with **`n`** values entered on the keyboard
+4. prints the first **`n`** elements of the array
 5. prints the sum of the entered values stored in the array
 
 ## Signature
@@ -53,9 +53,8 @@ Total sum: -2
 
 ## Constraints
 
-- Handle input errors: keep prompting until a valid number is read.
-- **`n`** is valid from 0 to 50: any other entry prints the
-  **`Nb values (max.50): `** prompt again.
+- Handle input errors: **`n`** is valid from 0 to 50, any other entry prints
+  the **`Nb values (max.50): `** prompt again.
 - An invalid entry at a **`Value i? `** prompt is discarded and the same
   **`Value i? `** prompt is printed again.
 - The values of the array are printed on one line, separated by one space, with

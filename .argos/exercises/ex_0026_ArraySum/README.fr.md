@@ -17,8 +17,8 @@ Implémentez **`ex_0026_ArraySum`** pour qu'elle :
 1. déclare un tableau pouvant contenir 50 entiers maximum
 2. demande à l'utilisateur le nombre de valeurs **`n`** à saisir
    (maximum 50)
-3. remplisse le tableau avec n valeurs entrées au clavier
-4. affiche les n premiers éléments du tableau
+3. remplisse le tableau avec **`n`** valeurs entrées au clavier
+4. affiche les **`n`** premiers éléments du tableau
 5. affiche la somme des valeurs saisies se trouvant dans le tableau
 
 ## Signature
@@ -54,9 +54,8 @@ Total sum: -2
 
 ## Contraintes
 
-- Gérez les erreurs de saisie : redemandez tant qu'un nombre valide n'est pas lu.
-- **`n`** est valide de 0 à 50 : toute autre saisie réaffiche l'invite
-  **`Nb values (max.50): `**.
+- Gérez les erreurs de saisie : **`n`** est valide de 0 à 50, toute autre
+  saisie réaffiche l'invite **`Nb values (max.50): `**.
 - Une saisie invalide à une invite **`Value i? `** est ignorée et la même invite
   **`Value i? `** est réaffichée.
 - Les valeurs du tableau sont affichées sur une ligne, séparées par une espace,
