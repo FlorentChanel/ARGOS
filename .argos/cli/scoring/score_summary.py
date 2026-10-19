@@ -1,3 +1,4 @@
+import re
 from dataclasses import asdict, dataclass
 from typing import cast
 
@@ -192,3 +193,61 @@ class ScoreSummary:
             lines.append(sep)
 
         return "\n".join(lines)
+
+    def failures_to_str(self, exercise_ids: set[str]) -> str:
+        """Compiler output or failed tests of the given exercises; '' when none of them failed."""
+        blocks: list[str] = []
+        seen: set[str] = set()
+        for lp in self.learning_paths:
+            for serie in lp.series:
+                for ex in serie.exercises:
+                    if ex.exercise_id in seen or ex.exercise_id not in exercise_ids:
+                        continue
+                    seen.add(ex.exercise_id)
+                    block = _failure_block(ex)
+                    if block:
+                        blocks.append(block)
+        return "\n\n".join(blocks)
+
+
+def _indent(text: str, prefix: str) -> str:
+    return "\n".join(prefix + line for line in text.rstrip().splitlines())
+
+
+_ANSI = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
+_NINJA_LINE = re.compile(r"^(ninja: |\[\d+/\d+\] |FAILED: )")
+
+
+def _compiler_diagnostics(ninja_output: str) -> str:
+    """The compiler messages only: ninja's progress lines and the failed command lines are noise for students."""
+    kept: list[str] = []
+    after_failed = False
+    for line in ninja_output.splitlines():
+        plain = _ANSI.sub("", line)
+        if after_failed:
+            after_failed = False
+            continue
+        if _NINJA_LINE.match(plain):
+            after_failed = plain.startswith("FAILED: ")
+            continue
+        kept.append(line)
+    return "\n".join(kept).strip("\n") or ninja_output
+
+
+def _failure_block(ex: ExerciseResult) -> str:
+    title = f"❌ {ex.exercise_id} {ex.exercise_name}"
+    if ex.test_results is None:
+        if not ex.compilation_output:
+            return ""
+        diagnostics = _compiler_diagnostics(ex.compilation_output)
+        return f"{title}: compilation failed\n{_indent(diagnostics, '    ')}"
+    failed = [t for t in ex.test_results if not t.get("success")]
+    if not failed:
+        return ""
+    lines = [f"{title}: {len(failed)}/{ex.total_tests} tests failed"]
+    for test in failed:
+        lines.append(f"  🔴 {test['name']}")
+        message = test.get("message")
+        if isinstance(message, str) and message.strip():
+            lines.append(_indent(message, "      "))
+    return "\n".join(lines)

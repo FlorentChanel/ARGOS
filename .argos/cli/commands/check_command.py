@@ -8,6 +8,7 @@ from dashboard_generator import DashboardGenerator
 from pipeline import PipelineProgress, ProcessPipeline, StepName
 from scoring import ScoreCalculator
 from utils.constants import DASHBOARD_DATA_FILE_PATH, DASHBOARD_INDEX_FILE_PATH
+from utils.exercise_utils import ExerciseUtils
 from utils.output import Output
 from utils.progress_bar import ProgressBar
 
@@ -91,6 +92,12 @@ class CheckCommand(Command):
             Output.success("No exercises to check in the selected scope.")
             return 0
 
+        # Untouched exercises fail by construction: detailing them would bury the student's own failures.
+        if target is not None and len(scope.exercises) == 1:
+            detailed_ids = {scope.exercises[0].id}
+        else:
+            detailed_ids = {e.id for e in scope.exercises if not ExerciseUtils.is_untouched(e)}
+
         with ProgressBar("starting...") as progress_bar:
             report = self._pipeline.run(
                 scope,
@@ -103,6 +110,9 @@ class CheckCommand(Command):
 
         summary = self._score_calculator.compute(report, scope)
         print(summary.to_str())
+        failures = summary.failures_to_str(detailed_ids)
+        if failures:
+            print(f"\n{failures}")
 
         self._dashboard_generator.generate(
             summary, Path(DASHBOARD_DATA_FILE_PATH), self._context.learning_paths
