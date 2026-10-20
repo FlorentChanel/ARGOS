@@ -1,3 +1,4 @@
+import re
 import xml.etree.ElementTree as ET
 
 from .models import TestCase, TestSuite
@@ -5,6 +6,10 @@ from .models import TestCase, TestSuite
 TEST_SUITE_ATTRIBUTE_NAME = "testsuite"
 TEST_CASE_ATTRIBUTE_NAME = "testcase"
 FAILURE_ATTRIBUTE_NAME = "failure"
+
+# GTest drops ESC (illegal in XML) from failure messages, leaving bare "[1;37;41m"
+# fragments from Utils::formatError(); put it back so the terminal renders colors.
+_STRIPPED_ANSI = re.compile(r"(?<!\x1b)\[([0-9;]*)m")
 
 
 class ResultParser:
@@ -45,6 +50,8 @@ class ResultParser:
         failure_element = test_case_element.find(FAILURE_ATTRIBUTE_NAME)
         if failure_element is not None:
             message = failure_element.get("message")
+            if message is not None:
+                message = _STRIPPED_ANSI.sub("\x1b[\\1m", message)
             success = False
 
         if name is None:
