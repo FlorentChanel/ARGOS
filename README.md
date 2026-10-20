@@ -19,15 +19,17 @@ cmake --version
 ninja --version
 ```
 
-The first `check` downloads GoogleTest, so you need an internet connection
+The first **`argos.exe check`** downloads GoogleTest, so you need an internet connection
 the first time.
 
-Python is optional on Windows: it is only needed to run `argos.py` instead
-of `argos.exe`. On Linux/macOS, you need Python ≥ 3.12.
+Python is optional on Windows: it is only needed to run **`argos.py`** instead
+of **`argos.exe`**.
+On Linux/macOS, you need Python ≥ 3.12.
 
 ## Getting started
 
-1. **Fork this repository** (button at the top of this page) — every student
+1. **Fork the original [HE-Arc/ARGOS](https://github.com/HE-Arc/ARGOS)
+   repository** (*Fork* button at the top of its page) — every student
    works on their own fork, named `<your-login>/ARGOS`.
 2. **Clone your fork**:
 
@@ -110,9 +112,9 @@ of `argos.exe`. On Linux/macOS, you need Python ≥ 3.12.
    medium = 2, hard = 5); a series is completed when you reach its points
    target — you do not need to solve every exercise.
 
-When your teacher updates the exercises, pull the changes from this
-repository into your fork, then run `.\argos.exe sync` (a `git pull` also
-triggers it automatically).
+When your teacher updates the exercises, pull the changes from the original
+[HE-Arc/ARGOS](https://github.com/HE-Arc/ARGOS) repository into your fork,
+then run `.\argos.exe sync` (a `git pull` also triggers it automatically).
 
 ## Reading from stdin
 
