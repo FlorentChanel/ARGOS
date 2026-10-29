@@ -1,0 +1,7 @@
+/*
+a faux mettre a la ligne
+b pas de point virgule
+c juste
+d pas de poiint virgule apres if
+e juste
+*/
