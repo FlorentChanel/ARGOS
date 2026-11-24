@@ -8,5 +8,5 @@
 // Local includes
 
 // Function prototypes
-
+void ex_0027_Array2DSum(void);
 #endif // EX_0027_ARRAY2DSUM_H

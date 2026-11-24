@@ -8,5 +8,5 @@
 // Local includes
 
 // Function prototypes
-
+int ex_0025_FillArray(int array[], int max_capacity);
 #endif // EX_0025_FILLARRAY_H
