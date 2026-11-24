@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "String Via Ptr",
+  "description": "Write a function that returns the length of a string by walking through it with a pointer.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "pointers"
+  ]
+}

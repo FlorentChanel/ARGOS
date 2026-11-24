@@ -1,0 +1,11 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Copy Arrays",
+  "description": "Write a function that copies the first n elements of an integer array into another array through pointers.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "pass_by_address",
+    "arrays_1d"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Deref Modify",
+  "description": "Write a function that adds a given amount to an integer variable through its address.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "pointers"
+  ]
+}

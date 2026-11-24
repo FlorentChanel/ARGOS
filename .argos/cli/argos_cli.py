@@ -33,7 +33,7 @@ from git_bindings import GitBindings
 from pipeline import CMakeStep, NinjaStep, ProcessPipeline, UnitTestsStep
 from scoring import ScoreCalculator
 from tests import GoogleTestRunner, ResultParser
-from utils.constants import ARGOS_FOLDER, HOOKS_FOLDER_PATH, LOG_FILE_PATH, LOG_LEVEL
+from utils.constants import ARGOS_FOLDER, HOOKS_GIT_CONFIG_PATH, LOG_FILE_PATH, LOG_LEVEL
 from utils.logging import ColorFormatter, PlainFormatter
 from utils.toolchain import ensure_compiler_first_in_path
 
@@ -144,9 +144,10 @@ def main() -> int:
         logger.error("Failed to initialize ARGOS CLI context: %s", e)
         return 1
 
-    if git_bindings.get_hooks_dir() != HOOKS_FOLDER_PATH:
-        logger.warning("No Git hooks dir set setting it now")
-        git_bindings.set_hooks_dir(HOOKS_FOLDER_PATH)
+    hooks_dir = git_bindings.get_hooks_dir()
+    if hooks_dir != HOOKS_GIT_CONFIG_PATH:
+        logger.warning("Git hooks dir %s: setting it to %s", hooks_dir or "not set", HOOKS_GIT_CONFIG_PATH)
+        git_bindings.set_hooks_dir(HOOKS_GIT_CONFIG_PATH)
 
     return dispatcher.dispatch()
 

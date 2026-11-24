@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Array Slice",
+  "description": "Write a function that copies the elements of an array between two indices into a second array and returns how many were copied.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "pointer_arithmetic"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Reverse Inplace Ptr",
+  "description": "Write a function that reverses the order of the elements of an integer array in place.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "pointer_arithmetic"
+  ]
+}

@@ -76,6 +76,9 @@ BANK_EXERCISES_PATH = path.join(ARGOS_FOLDER, "exercises")
 STUDENT_REPOS_FOLDER_PATH = path.join(ARGOS_FOLDER, STUDENT_REPOS_FOLDER_NAME)
 CLASSES_FOLDER_PATH = path.join(ARGOS_FOLDER, CLASSES_FOLDER_NAME)
 HOOKS_FOLDER_PATH = path.join(ARGOS_FOLDER, HOOKS_FOLDER_NAME)
+# Value of git's core.hooksPath: relative to the root of the working tree, where git runs the hooks,
+# so that a clone keeps its hooks wherever it lives (a folder synced between computers, a moved clone).
+HOOKS_GIT_CONFIG_PATH = f"{ARGOS_FOLDER_NAME}/{HOOKS_FOLDER_NAME}"
 
 SYNC_BASE_FOLDER_NAME = "sync_base"
 SYNC_BASE_PATH = path.join(ARGOS_FOLDER, SYNC_BASE_FOLDER_NAME, EXERCISE_FOLDER_NAME)

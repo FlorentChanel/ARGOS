@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Reverse Array Ptr",
+  "description": "Write a function that copies an array of integers into another array in reverse order, through pointers.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "pointers"
+  ]
+}

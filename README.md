@@ -41,7 +41,7 @@ On Linux/macOS, you need Python ≥ 3.12.
 3. **Activate your learning path** (your teacher gives you its id):
 
    ```powershell
-   .\argos.exe learning-path add <learning-path-id>
+   ./argos.exe learning-path add <learning-path-id>
    ```
 
    This copies the exercises of the learning path into the `Exercises/`
@@ -50,7 +50,7 @@ On Linux/macOS, you need Python ≥ 3.12.
    Example, for the HE-Arc 1242.1 C course:
 
    ```powershell
-   .\argos.exe learning-path add HE-Arc_1242.1_C
+   ./argos.exe learning-path add HE-Arc_1242.1_C
    ```
 
 ## Doing an exercise
@@ -73,7 +73,7 @@ On Linux/macOS, you need Python ≥ 3.12.
    Fix every error and warning until it compiles, then run your program:
 
    ```powershell
-   .\main.exe
+   ./main.exe
    ```
 
    Try several inputs and compare with what the statement expects.
@@ -83,7 +83,7 @@ On Linux/macOS, you need Python ≥ 3.12.
    ```powershell
    cd Exercises/ex_0001_PrintHelloWorld
    gcc -Wall -Wextra -Wpedantic -Werror -std=c23 -o main.exe main.c ex_0001_PrintHelloWorld.c
-   .\main.exe
+   ./main.exe
    ```
 
    The program prints `hello, world`.
@@ -91,7 +91,7 @@ On Linux/macOS, you need Python ≥ 3.12.
    from the project root. On Windows:
 
    ```powershell
-   .\argos.exe check <exercise-id>
+   ./argos.exe check <exercise-id>
    ```
 
    On Linux/macOS (Python ≥ 3.12):
@@ -104,7 +104,7 @@ On Linux/macOS, you need Python ≥ 3.12.
 
    ```powershell
    cd ../..
-   .\argos.exe check 0001
+   ./argos.exe check 0001
    ```
 
    Without an id, `check` runs every exercise of your selected learning
@@ -207,6 +207,23 @@ Keep it open while you work: it refreshes by itself after each `check`.
 | 0029 | [Time](.argos/exercises/ex_0029_Time/README.en.md) · [fr](.argos/exercises/ex_0029_Time/README.fr.md) | structures (struct), functions (pass by value) | 🟡 medium |
 | 0030 | [Complex](.argos/exercises/ex_0030_Complex/README.en.md) · [fr](.argos/exercises/ex_0030_Complex/README.fr.md) | structures (struct), functions (pass by value) | 🔴 hard |
 | 0031 | [Person](.argos/exercises/ex_0031_Person/README.en.md) · [fr](.argos/exercises/ex_0031_Person/README.fr.md) | arrays of structures, strings | 🟡 medium |
+| 0032 | [Copy Arrays](.argos/exercises/ex_0032_CopyArrays/README.en.md) · [fr](.argos/exercises/ex_0032_CopyArrays/README.fr.md) | pass by address, 1D arrays | 🟡 medium |
+| 0033 | [Swap Ptr](.argos/exercises/ex_0033_SwapPtr/README.en.md) · [fr](.argos/exercises/ex_0033_SwapPtr/README.fr.md) | pass by address | 🟢 easy |
+| 0034 | [Reset](.argos/exercises/ex_0034_Reset/README.en.md) · [fr](.argos/exercises/ex_0034_Reset/README.fr.md) | pointers / dereferencing | 🟢 easy |
+| 0035 | [Reset Pointer](.argos/exercises/ex_0035_ResetPointer/README.en.md) · [fr](.argos/exercises/ex_0035_ResetPointer/README.fr.md) | pointers / dereferencing | 🟡 medium |
+| 0110 | [Minmax](.argos/exercises/ex_0110_Minmax/README.en.md) · [fr](.argos/exercises/ex_0110_Minmax/README.fr.md) | pass by address | 🟢 easy |
+| 0111 | [Div Mod](.argos/exercises/ex_0111_DivMod/README.en.md) · [fr](.argos/exercises/ex_0111_DivMod/README.fr.md) | pass by address | 🟡 medium |
+| 0114 | [Accumulate Stats](.argos/exercises/ex_0114_AccumulateStats/README.en.md) · [fr](.argos/exercises/ex_0114_AccumulateStats/README.fr.md) | pass by address | 🟡 medium |
+| 0115 | [Clamp Inplace](.argos/exercises/ex_0115_ClampInplace/README.en.md) · [fr](.argos/exercises/ex_0115_ClampInplace/README.fr.md) | pass by address | 🟡 medium |
+| 0182 | [String Via Ptr](.argos/exercises/ex_0182_StringViaPtr/README.en.md) · [fr](.argos/exercises/ex_0182_StringViaPtr/README.fr.md) | pointers / dereferencing | 🟢 easy |
+| 0183 | [Count Via Ptr](.argos/exercises/ex_0183_CountViaPtr/README.en.md) · [fr](.argos/exercises/ex_0183_CountViaPtr/README.fr.md) | pointers / dereferencing | 🟢 easy |
+| 0184 | [Deref Modify](.argos/exercises/ex_0184_DerefModify/README.en.md) · [fr](.argos/exercises/ex_0184_DerefModify/README.fr.md) | pointers / dereferencing | 🟡 medium |
+| 0185 | [Array Sum Ptr](.argos/exercises/ex_0185_ArraySumPtr/README.en.md) · [fr](.argos/exercises/ex_0185_ArraySumPtr/README.fr.md) | pointers / dereferencing | 🟡 medium |
+| 0186 | [Find Max Ptr](.argos/exercises/ex_0186_FindMaxPtr/README.en.md) · [fr](.argos/exercises/ex_0186_FindMaxPtr/README.fr.md) | pointers / dereferencing | 🟡 medium |
+| 0188 | [Reverse Array Ptr](.argos/exercises/ex_0188_ReverseArrayPtr/README.en.md) · [fr](.argos/exercises/ex_0188_ReverseArrayPtr/README.fr.md) | pointers / dereferencing | 🟡 medium |
+| 0189 | [Pointer Compare](.argos/exercises/ex_0189_PointerCompare/README.en.md) · [fr](.argos/exercises/ex_0189_PointerCompare/README.fr.md) | pointers / dereferencing | 🟡 medium |
+| 0190 | [Reverse Inplace Ptr](.argos/exercises/ex_0190_ReverseInplacePtr/README.en.md) · [fr](.argos/exercises/ex_0190_ReverseInplacePtr/README.fr.md) | pointer arithmetic | 🟢 easy |
+| 0192 | [Array Slice](.argos/exercises/ex_0192_ArraySlice/README.en.md) · [fr](.argos/exercises/ex_0192_ArraySlice/README.fr.md) | pointer arithmetic | 🟡 medium |
 <!-- CATALOGUE:END -->
 
 ## License

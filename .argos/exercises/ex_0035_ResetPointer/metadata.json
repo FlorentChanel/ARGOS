@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Reset Pointer",
+  "description": "Write a function that sets to NULL an int pointer passed by address.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "pointers"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Div Mod",
+  "description": "Write a function that computes the quotient and the remainder of an integer division and returns them through two pointers.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "pass_by_address"
+  ]
+}

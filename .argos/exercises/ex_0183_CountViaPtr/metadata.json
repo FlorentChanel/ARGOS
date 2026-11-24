@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Count Via Ptr",
+  "description": "Write a function that counts the elements of an integer array equal to a given value and stores the count through a pointer parameter.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "pointers"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Array Sum Ptr",
+  "description": "Write a function that returns the sum of an integer array given by a pointer to its first element and its size.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "pointers"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Reset",
+  "description": "Write a function that sets to zero an integer variable passed by its address.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "pointers"
+  ]
+}

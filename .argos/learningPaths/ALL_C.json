@@ -74,6 +74,41 @@
         "ex_0030_Complex",
         "ex_0031_Person"
       ]
+    },
+    {
+      "name": "Pointers / dereferencing",
+      "pointsToComplete": 15,
+      "exercises": [
+        "ex_0034_Reset",
+        "ex_0035_ResetPointer",
+        "ex_0182_StringViaPtr",
+        "ex_0183_CountViaPtr",
+        "ex_0184_DerefModify",
+        "ex_0185_ArraySumPtr",
+        "ex_0186_FindMaxPtr",
+        "ex_0188_ReverseArrayPtr",
+        "ex_0189_PointerCompare"
+      ]
+    },
+    {
+      "name": "Pass by address",
+      "pointsToComplete": 10,
+      "exercises": [
+        "ex_0032_CopyArrays",
+        "ex_0033_SwapPtr",
+        "ex_0110_Minmax",
+        "ex_0111_DivMod",
+        "ex_0114_AccumulateStats",
+        "ex_0115_ClampInplace"
+      ]
+    },
+    {
+      "name": "Pointer arithmetic",
+      "pointsToComplete": 3,
+      "exercises": [
+        "ex_0190_ReverseInplacePtr",
+        "ex_0192_ArraySlice"
+      ]
     }
   ]
 }

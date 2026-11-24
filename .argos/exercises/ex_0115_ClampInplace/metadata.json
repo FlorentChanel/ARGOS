@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Clamp Inplace",
+  "description": "Write a function that bounds an integer variable, passed by its address, to a given interval.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "pass_by_address"
+  ]
+}

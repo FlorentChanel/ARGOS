@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Accumulate Stats",
+  "description": "Compute the sum and the mean of an integer array and store them through two pointer parameters.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "pass_by_address"
+  ]
+}

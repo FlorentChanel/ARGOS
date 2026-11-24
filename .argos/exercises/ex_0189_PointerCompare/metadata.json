@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Pointer Compare",
+  "description": "Write a function that compares two integer zones through pointers and returns -1, 0 or 1.",
+  "difficulty": "medium",
+  "language": "c",
+  "skills": [
+    "pointers"
+  ]
+}

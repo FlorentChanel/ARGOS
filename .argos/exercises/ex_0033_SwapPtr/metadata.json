@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Swap Ptr",
+  "description": "Write a function that swaps the values of two integer variables passed by their addresses.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "pass_by_address"
+  ]
+}

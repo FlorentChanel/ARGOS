@@ -1,0 +1,10 @@
+{
+  "$schema": "../metadata.schema.json",
+  "name": "Minmax",
+  "description": "Write a function that stores the minimum and the maximum of three integers through two pointer parameters.",
+  "difficulty": "easy",
+  "language": "c",
+  "skills": [
+    "pass_by_address"
+  ]
+}
